@@ -1,0 +1,433 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gap-quarter: 0.25rem;
+  --gap-half: 0.5rem;
+  --gap: 1rem;
+  --gap-double: 2rem;
+
+  --bg: #fff;
+  --accents-1: #111;
+  --accents-2: #333;
+  --accents-3: #888;
+  --geist-foreground: #000;
+
+  --radius: 8px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-mono: SF Mono, menlo, consolas, Monaco, Andale Mono, Ubuntu Mono,
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Noto Sans JP', 'sans-serif';
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: hsla(0, 0%, 0%, 0.7);
+  /* Hack */
+  overflow-x: hidden;
+}
+
+a {
+  font-weight: 400;
+  color: #ff2261;
+  text-decoration: none;
+}
+a:hover {
+  color: #ff6090;
+  text-decoration: underline;
+}
+/*
+code[class*='language-'],
+pre[class*='language-'] {
+  color: #000;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  font-size: 0.95em;
+  line-height: 1.4em;
+  tab-size: 4;
+  hyphens: none;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+.token.namespace {
+  opacity: 0.7;
+}
+.token.string,
+.token.attr-value {
+  color: #028265;
+}
+.token.punctuation,
+.token.operator {
+  color: #000;
+}
+.token.url,
+.token.symbol,
+.token.boolean,
+.token.variable,
+.token.constant {
+  color: #36acaa;
+}
+.token.atrule,
+.language-autohotkey .token.selector,
+.language-json .token.boolean,
+code[class*='language-css'] {
+  font-weight: 600;
+}
+.language-json .token.boolean {
+  color: var(--geist-success);
+}
+.token.keyword {
+  color: #ff0078;
+  font-weight: bolder;
+}
+.token.function,
+.token.tag,
+.token.class-name,
+.token.number,
+.token.tag .token.punctuation {
+  color: var(--geist-success);
+}
+.language-autohotkey .token.tag {
+  color: #9a050f;
+}
+.token.selector,
+.language-autohotkey .token.keyword {
+  color: #00009f;
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.deleted {
+  color: red;
+  font-weight: bolder;
+}
+.token.inserted {
+  color: var(--geist-success);
+  font-weight: bolder;
+}
+.language-json .token.property,
+.language-markdown .token.title {
+  color: #000;
+  font-weight: bolder;
+}
+.language-markdown .token.code {
+  color: var(--geist-success);
+  font-weight: normal;
+}
+.language-markdown .token.list,
+.language-markdown .token.hr {
+  color: #999;
+}
+.language-markdown .token.url {
+  color: #ff0078;
+  font-weight: bolder;
+}
+.token.selector {
+  color: #2b91af;
+}
+.token.property,
+.token.entity {
+  color: #f00;
+}
+.token.attr-name,
+.token.regex {
+  color: #d9931e;
+}
+.token.directive.tag .tag {
+  background: #ff0;
+  color: #393a34;
+}
+/* dark
+pre.dark[class*='language-'] {
+  color: #fafbfc;
+}
+.language-json .dark .token.boolean {
+  color: var(--geist-success);
+}
+.dark .token.string {
+  color: #50e3c2;
+}
+.dark .token.function,
+.dark .token.tag,
+.dark .token.class-name,
+.dark .token.number {
+  color: #2ba8ff;
+}
+.dark .token.attr-value,
+.dark .token.punctuation,
+.dark .token.operator {
+  color: #efefef;
+}
+.dark .token.attr-name,
+.dark .token.regex {
+  color: #fac863;
+}
+.language-json .dark .token.property,
+.language-markdown .dark .token.title {
+  color: #fff;
+}
+.language-markdown .dark .token.code {
+  color: #50e3c2;
+}
+*/
+
+.links {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4rem auto;
+  width: 920px;
+  max-width: calc(100vw - var(--gap-double));
+}
+
+.feature {
+  flex: 0 0 25%;
+  align-items: center;
+  display: inline-flex;
+  padding: 0 0.5rem 1.5rem;
+  margin: 0 auto;
+}
+
+.feature h4 {
+  margin: 0 0 0 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .feature div {
+    flex-basis: auto;
+    padding-left: 0;
+  }
+
+  .feature h4 {
+    font-size: 0.75rem;
+  }
+}
+
+.explanation {
+  font-size: 1rem;
+  width: 35rem;
+  max-width: 100vw;
+  padding: 0 2rem;
+  background: var(--bg);
+  margin: var(--gap-half) auto;
+}
+figure {
+  font-size: 0.85rem;
+  color: #999;
+  line-height: 1.8;
+}
+
+figure {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.links {
+  margin-top: var(--gap);
+}
+
+mark {
+  padding: var(--gap-quarter);
+  border-radius: var(--radius);
+  background: rgba(247, 212, 255, 0.8);
+}
+
+.title {
+  text-align: center;
+}
+
+.logo :global(svg) {
+  max-width: calc(100vw - var(--gap-double));
+}
+
+.video {
+  width: 1080px;
+  max-width: calc(100vw - 40px);
+  transform: translateX(-50%);
+  margin-left: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+.video :global(video) {
+  max-width: 100%;
+  max-height: 90vh;
+  outline: none;
+}
+
+h2 {
+  font-size: 1.51572rem;
+  line-height: 1.1;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  padding-top: 1rem;
+}
+
+p {
+  line-height: 1.7;
+  margin-bottom: 1.7rem;
+  white-space: pre-wrap;
+}
+pre {
+  white-space: pre;
+}
+pre :global(code) {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+blockquote {
+  font-style: italic;
+  font-family: var(--font-mono);
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-left: 1.275rem;
+  padding-right: 0;
+  padding-top: 0;
+  margin-bottom: 1.7rem;
+  font-size: 1rem;
+  line-height: 1.7rem;
+  color: hsla(0, 0%, 0%, 0.6);
+  border-left: 0.425rem solid hsla(0, 0%, 0%, 0.13);
+}
+
+.slice {
+  position: relative;
+}
+
+.slice::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 130%;
+  background: #fff;
+  transform: skew(-20deg);
+}
+
+@media (max-width: 600px) {
+  .explanation {
+    padding: 0 1rem 4rem;
+  }
+
+  h2 {
+    font-size: 0.95rem;
+    letter-spacing: 0;
+  }
+}
+
+.dotted {
+  border-bottom: 1px dashed black;
+}
+
+/* グローバルなCSSはこちら */
+.blog-body h2 {
+  border-bottom: 1px #e6e6e6 solid;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  padding-top: 1rem;
+}
+
+.gatsby-highlight {
+  margin-bottom: 1.56rem;
+}
+
+.gatsby-highlight code[class*='language-'] {
+  font-family: 'SF Mono', menlo, consolas, Monaco, 'Andale Mono', 'Ubuntu Mono',
+    monospace;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+:not(pre) > code[class*='language-'] {
+  background-color: #e2e2e2cc;
+  color: inherit;
+  margin: 0 8px;
+  border-radius: 2px !important;
+}
+
+/* warn box */
+.gatsby-highlight pre.language-warn {
+  background-color: #fffeda;
+}
+
+.gatsby-highlight code.language-warn {
+  white-space: pre-wrap;
+  color: #2f2803ab;
+}
+
+p > code[class='language-text'] {
+  font-size: 16px;
+  padding: 0.1rem 0.4rem 0.1rem;
+  border-radius: 4px;
+  font-family: 'SF Mono', menlo, consolas, Monaco, 'Andale Mono', 'Ubuntu Mono',
+    monospace;
+}
+
+.gatsby-resp-image-wrapper {
+  margin: 20px auto !important;
+}
+
+.gatsby-resp-image-wrapper > img.gatsby-resp-image-image {
+  box-shadow: 2px 2px 6px 2px #b0b0b0 !important;
+}
+
+.gatsby-highlight pre[class*='language-'] {
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px 1px #00000024;
+}
+
+.twitter-tweet {
+  margin: auto;
+}
+
+.social-icon[href*='github']:hover .social-svg-mask {
+  fill: #181718 !important;
+}
+
+.social-icon[href*='twitter']:hover .social-svg-mask {
+  fill: #1da1f2 !important;
+}
+
+.social-icon[href*='facebook']:hover .social-svg-mask {
+  fill: #385898 !important;
+}
+
+.social-icon[href*='mailto']:hover .social-svg-mask {
+  fill: #1e985a !important;
+}
