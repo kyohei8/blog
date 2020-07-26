@@ -59,7 +59,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
 
   const { users } = await getNotionUsers(post.Authors || []);
   post.Authors = Object.keys(users).map(id => users[id].full_name);
-  post.Tags = post.Tags.split(',');
+  post.Tags = post.Tags ? post.Tags.split(',') : [];
 
   return {
     props: {
@@ -95,6 +95,7 @@ const RenderPost = ({ post, redirect, preview }) => {
       key: string;
       isNested?: boolean;
       nested: string[];
+      listTagName: string;
       children: React.ReactFragment;
     };
   } = {};
@@ -184,13 +185,18 @@ const RenderPost = ({ post, redirect, preview }) => {
           const isList = listTypes.has(type);
           let toRender = [];
 
+          // リストの表示
           if (isList) {
-            listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
+            // 最初のタグ
+            if (!listTagName) {
+              listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
+            }
             listLastId = `list${id}`;
 
             listMap[id] = {
               key: id,
               nested: [],
+              listTagName: components[type === 'bulleted_list' ? 'ul' : 'ol'],
               children: textBlock(properties.title, true, id)
             };
 
@@ -200,29 +206,48 @@ const RenderPost = ({ post, redirect, preview }) => {
             }
           }
 
+          // リストの場合最後まで確認し、toRenderにpushする
           if (listTagName && (isLast || !isList)) {
+            // console.log(listTagName, listMap);
             toRender.push(
               React.createElement(
                 listTagName,
-                { key: listLastId! },
+                {
+                  key: listLastId!,
+                  className: `${
+                    listTagName === 'ul' ? 'list-disc' : 'list-decimal'
+                  } list-inside`
+                },
                 Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;
 
-                  const createEl = item =>
-                    React.createElement(
+                  const createEl = item => {
+                    console.log(item.listTagName, item.nested.length);
+                    console.log(item.nested);
+                    return React.createElement(
                       components.li || 'ul',
                       { key: item.key },
                       item.children,
                       item.nested.length > 0
                         ? React.createElement(
-                            components.ul || 'ul',
-                            { key: item + 'sub-list' },
-                            item.nested.map(nestedId =>
-                              createEl(listMap[nestedId])
-                            )
+                            // 次のリストのタグを取得
+                            listMap[item.nested[0]].listTagName,
+                            {
+                              key: item + 'sub-list',
+                              className: `${
+                                listMap[item.nested[0]].listTagName === 'ul'
+                                  ? 'list-disc'
+                                  : 'list-decimal'
+                              } list-inside`
+                            },
+                            item.nested.map(nestedId => {
+                              return createEl(listMap[nestedId]);
+                            })
                           )
                         : null
                     );
+                  };
+                  console.log(listMap[itemId]);
                   return createEl(listMap[itemId]);
                 })
               )
@@ -243,6 +268,7 @@ const RenderPost = ({ post, redirect, preview }) => {
           switch (type) {
             case 'page':
             case 'divider':
+              // todo
               break;
             case 'text':
               if (properties) {
