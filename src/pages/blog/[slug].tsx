@@ -335,6 +335,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                     muted={!isImage}
                     autoPlay={!isImage}
                     style={childStyle}
+                    loading={isImage ? 'lazy' : 'eager'}
                   />
                 );
               }
