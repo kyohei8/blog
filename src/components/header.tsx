@@ -37,7 +37,7 @@ export default ({ titlePre = '' }) => {
           {router.pathname === '/' ? (
             <a className="text-current text-4xl">{siteMetadata.title}</a>
           ) : (
-            <a className="text-current text-2xl">{siteMetadata.title}</a>
+            <a className="text-current text-xl">{siteMetadata.title}</a>
           )}
         </Link>
       </div>
