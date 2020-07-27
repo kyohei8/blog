@@ -1,5 +1,5 @@
 import '../styles/global.css';
-import '../styles/prism.css';
+import '@highlightjs/cdn-assets/styles/tomorrow-night-eighties.min.css';
 
 import Footer from '../components/footer';
 

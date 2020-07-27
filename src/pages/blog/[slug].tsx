@@ -389,8 +389,11 @@ const RenderPost = ({ post, redirect, preview }) => {
                     />
                   );
                 } else {
+                  const _lang = language
+                    ? (language as string).toLowerCase().replace(/ /g, '')
+                    : '';
                   toRender.push(
-                    <components.Code key={id} language={language || ''}>
+                    <components.Code key={id} language={_lang}>
                       {content}
                     </components.Code>
                   );

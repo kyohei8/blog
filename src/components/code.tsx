@@ -1,29 +1,24 @@
-import Prism from 'prismjs';
+import hl from 'highlight.js';
 import * as React from 'react';
 
-const Code = ({ children, language = 'javascript' }) => {
+const Code = ({ children: text, language = 'plaintext' }) => {
   const codeElement = React.useRef<HTMLElement | null>(null);
 
   React.useEffect(() => {
-    // 多少ディレイをいれないとうまく表示されない・・
-    setTimeout(() => {
-      if (codeElement.current) {
-        codeElement.current.innerHTML = Prism.highlight(
-          children,
-          Prism.languages[language.toLowerCase()] || Prism.languages.javascript
-        );
-      }
-    }, 1000);
+    // 有効なlanguageかどうか
+    const lang = hl.getLanguage(language)
+      ? hl.highlight(language, text)
+      : hl.highlightAuto(text);
+    if (codeElement.current) {
+      codeElement.current.innerHTML = lang.value;
+    }
   }, []);
 
   return (
     <div className="mb-4">
       <pre>
-        <code
-          ref={codeElement}
-          className={`language-${language.toLowerCase()}`}
-        >
-          {children}
+        <code ref={codeElement} className="hljs">
+          {text}
         </code>
       </pre>
     </div>

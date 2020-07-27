@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 :root {
   --gap-quarter: 0.25rem;
@@ -297,3 +296,15 @@ p > code[class='language-text'] {
 .social-icon[href*='mailto']:hover .social-svg-mask {
   fill: #1e985a !important;
 }
+
+code {
+  font-family: var(--font-mono);
+  @apply bg-gray-400 py-px px-2 mx-1 rounded-sm;
+}
+
+code.hljs {
+  padding: 0.9rem !important;
+  margin: 0 !important;
+}
+
+@tailwind utilities;
