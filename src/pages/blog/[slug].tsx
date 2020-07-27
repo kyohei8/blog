@@ -162,7 +162,7 @@ const RenderPost = ({ post, redirect, preview }) => {
             {post.Tags.length > 0 && (
               <div className="">
                 {post.Tags.map((tag: string) => (
-                  <span className="inline-block mr-1 rounded text-sm px-1 text-pink-500">
+                  <span className="inline-block mr-1 rounded text-sm px-1 text-pink-700">
                     {tag}
                   </span>
                 ))}
@@ -170,7 +170,7 @@ const RenderPost = ({ post, redirect, preview }) => {
             )}
           </div>
           {post.Date && (
-            <div className="text-sm text-gray-600">{getDateStr(post.Date)}</div>
+            <div className="text-sm text-gray-700">{getDateStr(post.Date)}</div>
           )}
         </div>
 

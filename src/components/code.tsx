@@ -17,7 +17,7 @@ const Code = ({ children: text, language = 'plaintext' }) => {
   return (
     <div className="mb-4">
       <pre>
-        <code ref={codeElement} className="hljs">
+        <code ref={codeElement} className="hljs text-sm md:text-base">
           {text}
         </code>
       </pre>
