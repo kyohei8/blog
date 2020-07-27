@@ -5,10 +5,21 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
           <script
             dangerouslySetInnerHTML={{
-              __html: `WebFont.load({ google: { families: ['Noto Sans JP:200,400,400i,700'] } });`
+              __html: `
+                WebFontConfig = {
+                  google: { families: ['Noto Sans JP:200,400,400i,700'] }
+                };
+                (function() {
+                  var wf = document.createElement('script');
+                  wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                  wf.type = 'text/javascript';
+                  wf.async = 'true';
+                  var s = document.getElementsByTagName('script')[0];
+                  s.parentNode.insertBefore(wf, s);
+                })();
+                `
             }}
           ></script>
         </Head>
