@@ -208,7 +208,6 @@ const RenderPost = ({ post, redirect, preview }) => {
 
           // リストの場合最後まで確認し、toRenderにpushする
           if (listTagName && (isLast || !isList)) {
-            // console.log(listTagName, listMap);
             toRender.push(
               React.createElement(
                 listTagName,
@@ -222,8 +221,6 @@ const RenderPost = ({ post, redirect, preview }) => {
                   if (listMap[itemId].isNested) return null;
 
                   const createEl = item => {
-                    console.log(item.listTagName, item.nested.length);
-                    console.log(item.nested);
                     return React.createElement(
                       components.li || 'ul',
                       { key: item.key },
@@ -247,7 +244,6 @@ const RenderPost = ({ post, redirect, preview }) => {
                         : null
                     );
                   };
-                  console.log(listMap[itemId]);
                   return createEl(listMap[itemId]);
                 })
               )
