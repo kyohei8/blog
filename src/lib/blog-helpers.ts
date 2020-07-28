@@ -5,11 +5,15 @@ dayjs.locale('ja');
 dayjs.extend(utc);
 
 // 日付データを変換
-const formatDateTime = (date: string) => {
-  return dayjs
-    .utc(date)
-    .local()
-    .format('YYYY-MM-DD');
+const formatDateTime = (date: string | null) => {
+  if (date) {
+    return dayjs
+      .utc(date)
+      .local()
+      .format('YYYY-MM-DD');
+  } else {
+    return '-';
+  }
 };
 
 export const getBlogLink = (slug: string) => {
