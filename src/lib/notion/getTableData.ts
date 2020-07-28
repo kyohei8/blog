@@ -4,11 +4,24 @@ import { normalizeSlug } from '../blog-helpers';
 import queryCollection from './queryCollection';
 import { values } from './rpc';
 
-export default async function loadTable(collectionBlock: any, isPosts = false) {
+type postDataType = {
+  id: string;
+  Page: string;
+  Slug: string;
+  Date: number | null;
+  Tags: string | null;
+  Authors: string[] | null;
+  Published: 'Yes' | 'No';
+};
+
+export default async function loadTable(
+  collectionBlock: any,
+  isPosts = false
+): Promise<postDataType[]> {
   const slugger = new Slugger();
 
   const { value } = collectionBlock;
-  let table: any = {};
+  let table: postDataType[] = [];
   const col = await queryCollection({
     collectionId: value.collection_id,
     collectionViewId: value.view_ids[0]
@@ -94,12 +107,13 @@ export default async function loadTable(collectionBlock: any, isPosts = false) {
     const key = row.Slug;
     if (isPosts && !key) continue;
 
-    if (key) {
-      table[key] = row;
-    } else {
-      if (!Array.isArray(table)) table = [];
+    // 同じslugの場合は無視する
+    const postExist = table.findIndex(({ Slug }) => Slug === key) > -1;
+
+    if (key && !postExist) {
       table.push(row);
     }
   }
-  return table;
+  // 逆順にする
+  return table.reverse();
 }
