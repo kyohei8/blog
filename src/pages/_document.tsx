@@ -30,19 +30,19 @@ class MyDocument extends Document {
 
           {/*-- Main Link Tags  --*/}
           <link
-            href="icons/favicon-16.png"
+            href="icons/favicon-16x16.png"
             rel="icon"
             type="image/png"
             sizes="16x16"
           />
           <link
-            href="icons/favicon-32.png"
+            href="icons/favicon-32x32.png"
             rel="icon"
             type="image/png"
             sizes="32x32"
           />
           <link
-            href="icons/favicon-48.png"
+            href="icons/favicon-48x48.png"
             rel="icon"
             type="image/png"
             sizes="48x48"
@@ -83,7 +83,7 @@ class MyDocument extends Document {
 
           {/* <!-- Others --> */}
           <link
-            href="icons/favicon.icon"
+            href="icons/favicon.ico"
             rel="shortcut icon"
             type="image/x-icon"
           />
