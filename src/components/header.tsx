@@ -22,8 +22,11 @@ export default ({ titlePre = '' }) => {
   return (
     <header>
       <Head>
-        <title>{titlePre ? `${titlePre} |` : ''} kyohei's Blog</title>
-        <meta name="description" content="kyohei's Blog" />
+        <title>
+          {titlePre ? `${titlePre} | ` : ''}
+          {siteMetadata.title}
+        </title>
+        <meta name="description" content={siteMetadata.description} />
         {/*
         <meta name="og:title" content="My Notion Blog" />
         <meta property="og:image" content={ogImageUrl} />
