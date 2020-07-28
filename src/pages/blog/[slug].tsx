@@ -18,7 +18,7 @@ import { textBlock } from '../../lib/notion/renderers';
 export async function getStaticProps({ params: { slug }, preview }) {
   // load the postsTable so that we can get the page's ID
   const postsTable = await getBlogIndex();
-  const post = postsTable[slug];
+  const post = postsTable.find(({ Slug: _slug }) => _slug === slug);
 
   // if we can't find the post or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
@@ -162,7 +162,10 @@ const RenderPost = ({ post, redirect, preview }) => {
             {post.Tags.length > 0 && (
               <div className="">
                 {post.Tags.map((tag: string) => (
-                  <span className="inline-block mr-1 rounded text-sm px-1 text-pink-700">
+                  <span
+                    key={tag}
+                    className="inline-block mr-1 rounded text-sm px-1 text-pink-700"
+                  >
                     {tag}
                   </span>
                 ))}
