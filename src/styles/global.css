@@ -304,8 +304,20 @@ code {
   @apply bg-gray-300 py-px px-1 mx-1 rounded-sm;
 }
 
-code.hljs {
+/* codeタグにdisplay:blockを描くとlighthouseでエラーになるのでこちらに記述する */
+/* code タグはinline要素にしないといけない */
+pre.hljs-pre {
   padding: 0.9rem !important;
+  margin: 0 !important;
+  background: #2d2d2d;
+  color: #ccc;
+  overflow-x: auto;
+}
+
+code.hljs {
+  display: inline;
+  overflow: hidden;
+  padding: 0 !important;
   margin: 0 !important;
 }
 
