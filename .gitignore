@@ -29,3 +29,9 @@ yarn-error.log*
 
 .now
 .vercel
+
+# build output
+public/atom
+public/sw.js
+public/sw.js.map
+public/workbox-*
