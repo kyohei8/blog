@@ -18,6 +18,7 @@
     "@zeit/react-jsx-parser": "^2.0.0",
     "async-sema": "^3.1.0",
     "dayjs": "^1.8.29",
+    "fslightbox-react": "^1.4.9",
     "github-slugger": "^1.2.1",
     "highlight.js": "^10.1.2",
     "next": "9.4.4",
@@ -28,6 +29,7 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
+    "@types/fslightbox-react": "^1.4.0",
     "@types/node": "^13.1.2",
     "@types/react": "^16.9.17",
     "husky": "^3.1.0",

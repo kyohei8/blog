@@ -1,7 +1,8 @@
+import FsLightbox from 'fslightbox-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
-import React, { CSSProperties, useEffect } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
@@ -87,6 +88,24 @@ const listTypes = new Set(['bulleted_list', 'numbered_list']);
 
 const RenderPost = ({ post, redirect, preview }) => {
   const router = useRouter();
+  const imageSrcs: {
+    id: string;
+    src: string;
+  }[] = [];
+  const [lightboxController, setLightboxController] = useState({
+    toggler: false,
+    slide: 1
+  });
+
+  // 指定の画像をlightboxで開く
+  function openLightboxOnSlide(selectImageId) {
+    const slideIndex =
+      imageSrcs.findIndex(({ id }) => id === selectImageId) + 1;
+    setLightboxController({
+      toggler: !lightboxController.toggler,
+      slide: slideIndex
+    });
+  }
 
   let listTagName: string | null = null;
   let listLastId: string | null = null;
@@ -139,6 +158,24 @@ const RenderPost = ({ post, redirect, preview }) => {
     );
   }
 
+  // lightbox用の画像を選別
+  (post.content || []).map(block => {
+    const { value } = block;
+    const { type, id } = value;
+    if (type === 'image') {
+      const { format = {} } = value;
+      const { display_source } = format;
+
+      const src = `/api/asset?assetUrl=${encodeURIComponent(
+        display_source as any
+      )}&blockId=${id}`;
+      imageSrcs.push({
+        id,
+        src
+      });
+    }
+  });
+
   return (
     <>
       <Header titlePre={post.Page} />
@@ -153,6 +190,16 @@ const RenderPost = ({ post, redirect, preview }) => {
           </div>
         </div>
       )}
+
+      {imageSrcs.length > 0 && (
+        <FsLightbox
+          toggler={lightboxController.toggler}
+          sources={imageSrcs.map(({ src }) => src)}
+          type="image"
+          slide={lightboxController.slide}
+        />
+      )}
+
       <div className="mb-20">
         <h1 className="mb-0 text-2xl pb-2 border-b border-solid border-gray-400">
           {post.Page || ''}
@@ -339,6 +386,10 @@ const RenderPost = ({ post, redirect, preview }) => {
                     autoPlay={!isImage}
                     style={childStyle}
                     loading={isImage ? 'lazy' : 'eager'}
+                    className="post-image"
+                    onClick={() => {
+                      openLightboxOnSlide(id);
+                    }}
                   />
                 );
               }
