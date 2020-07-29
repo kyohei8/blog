@@ -1,6 +1,7 @@
 {
-  "name": "notion-blog",
+  "name": "my-blog",
   "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "start": "next start",
