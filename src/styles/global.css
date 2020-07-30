@@ -44,7 +44,7 @@ body {
 
 a {
   font-weight: 400;
-  @apply text-pink-700;
+  color: #e10d88;
   text-decoration: none;
 }
 a:hover {
