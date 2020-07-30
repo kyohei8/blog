@@ -21,7 +21,7 @@ const Bio: React.FC<BioProps> = () => {
         }}
       />
       <div className="text-sm">
-        <div className="mb-1">
+        <div className="mb-2 md:mb-0">
           Written by <strong>{author.name}</strong> who lives and works in Tokyo
           building useful things.
         </div>

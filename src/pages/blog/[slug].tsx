@@ -96,7 +96,6 @@ const listTypes = new Set(['bulleted_list', 'numbered_list']);
 
 const RenderPost = props => {
   const { post, beforePost, afterPost, redirect, preview } = props;
-  console.log(beforePost, afterPost);
   const router = useRouter();
   const imageSrcs: {
     id: string;
