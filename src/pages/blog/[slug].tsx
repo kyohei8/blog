@@ -386,7 +386,6 @@ const RenderPost = ({ post, redirect, preview }) => {
                     autoPlay={!isImage}
                     style={childStyle}
                     loading={isImage ? 'lazy' : 'eager'}
-                    className="post-image"
                     onClick={() => {
                       openLightboxOnSlide(id);
                     }}
@@ -401,7 +400,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                       paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
                       position: 'relative'
                     }}
-                    className="asset-wrapper"
+                    className="asset-wrapper shadow-md mb-4"
                     key={id}
                   >
                     {child}
