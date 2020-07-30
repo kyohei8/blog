@@ -5,7 +5,11 @@ module.exports = {
   },
   variants: {
     textColor: ['responsive', 'hover', 'focus', 'active'],
-    backgroundColor: ['responsive', 'hover', 'focus', 'active']
-  }
-  // plugins: [require('@tailwindcss/custom-forms')]
+    backgroundColor: ['responsive', 'hover', 'focus', 'active'],
+    lineClamp: ['responsive']
+  },
+  plugins: [
+    require('@neojp/tailwindcss-line-clamp-utilities')
+    // require('@tailwindcss/custom-forms')
+  ]
 };

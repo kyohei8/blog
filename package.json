@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@highlightjs/cdn-assets": "^10.1.2",
+    "@styled-icons/feather": "^10.6.0",
     "@zeit/react-jsx-parser": "^2.0.0",
     "async-sema": "^3.1.0",
     "dayjs": "^1.8.29",
@@ -26,9 +27,11 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-social-icons": "^4.1.0",
+    "styled-components": "^5.1.1",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
+    "@neojp/tailwindcss-line-clamp-utilities": "^1.0.1",
     "@types/fslightbox-react": "^1.4.0",
     "@types/node": "^13.1.2",
     "@types/react": "^16.9.17",

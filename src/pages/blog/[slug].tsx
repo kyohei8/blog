@@ -9,6 +9,7 @@ import ReactJSXParser from '@zeit/react-jsx-parser';
 import components from '../../components/dynamic';
 import Header from '../../components/header';
 import Heading from '../../components/heading';
+import SiblingPost from '../../components/siblingPost';
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
@@ -17,22 +18,26 @@ import { textBlock } from '../../lib/notion/renderers';
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug }, preview }) {
-  // load the postsTable so that we can get the page's ID
+  // slugからページIDを取得するために,postのリストを取得
   const postsTable = await getBlogIndex();
-  const post = postsTable.find(({ Slug: _slug }) => _slug === slug);
+  const postIndex = postsTable.findIndex(({ Slug: _slug }) => _slug === slug);
+  const post = postsTable[postIndex];
 
-  // if we can't find the post or if it is unpublished and
-  // viewed without preview mode then we just redirect to /blog
+  // 存在しないまたは公開していない場合はリダイレクト
   if (!post || (post.Published !== 'Yes' && !preview)) {
     console.log(`Failed to find post for slug: ${slug}`);
     return {
       props: {
-        redirect: '/blog',
+        redirect: '/',
         preview: false
       },
       unstable_revalidate: 5
     };
   }
+  // 前後のpostを取得
+  const afterPost = postsTable[postIndex - 1] || null;
+  const beforePost = postsTable[postIndex + 1] || null;
+
   const postData = await getPageData(post.id);
   post.content = postData.blocks;
 
@@ -65,6 +70,8 @@ export async function getStaticProps({ params: { slug }, preview }) {
   return {
     props: {
       post,
+      afterPost,
+      beforePost,
       preview: preview || false
     },
     unstable_revalidate: 10
@@ -76,17 +83,20 @@ export async function getStaticPaths() {
   const postsTable = await getBlogIndex();
   // we fallback for any unpublished posts to save build time
   // for actually published ones
+  const paths = postsTable
+    .filter(post => post.Published === 'Yes')
+    .map(({ Slug }) => getBlogLink(Slug));
   return {
-    paths: Object.keys(postsTable)
-      .filter(post => postsTable[post].Published === 'Yes')
-      .map(slug => getBlogLink(slug)),
+    paths,
     fallback: true
   };
 }
 
 const listTypes = new Set(['bulleted_list', 'numbered_list']);
 
-const RenderPost = ({ post, redirect, preview }) => {
+const RenderPost = props => {
+  const { post, beforePost, afterPost, redirect, preview } = props;
+  console.log(beforePost, afterPost);
   const router = useRouter();
   const imageSrcs: {
     id: string;
@@ -204,24 +214,28 @@ const RenderPost = ({ post, redirect, preview }) => {
         <h1 className="mb-0 text-2xl pb-2 border-b border-solid border-gray-400">
           {post.Page || ''}
         </h1>
-        <div className="flex justify-between mb-6">
+        <div className="flex justify-between mb-6 px-1">
           <div>
             {post.Tags.length > 0 && (
-              <div className="">
+              <>
                 {post.Tags.map((tag: string) => (
                   <span
                     key={tag}
-                    className="inline-block mr-1 rounded text-sm px-1 text-pink-700"
+                    className="inline-block mr-2 text-sm text-blue-700"
                   >
                     {tag}
                   </span>
                 ))}
-              </div>
+              </>
             )}
           </div>
-          {post.Date && (
-            <div className="text-sm text-gray-700">{getDateStr(post.Date)}</div>
-          )}
+          <div className="w-24 text-right">
+            {post.Date && (
+              <span className="text-sm text-gray-700">
+                {getDateStr(post.Date)}
+              </span>
+            )}
+          </div>
         </div>
 
         {(!post.content || post.content.length === 0) && (
@@ -498,6 +512,29 @@ const RenderPost = ({ post, redirect, preview }) => {
           }
           return toRender;
         })}
+      </div>
+      <hr />
+
+      <div className="flex flex-row mb-10 mt-4">
+        <div className="flex w-1/2 flex-1">
+          {beforePost && (
+            <SiblingPost
+              title={beforePost.Page}
+              url={getBlogLink(beforePost.Slug)}
+              chevron="left"
+            />
+          )}
+        </div>
+        <div className="w-px h-auto bg-gray-400 mx-4" />
+        <div className="flex w-1/2 flex-1">
+          {afterPost && (
+            <SiblingPost
+              title={afterPost.Page}
+              url={getBlogLink(afterPost.Slug)}
+              chevron="right"
+            />
+          )}
+        </div>
       </div>
     </>
   );

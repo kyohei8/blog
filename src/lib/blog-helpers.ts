@@ -16,10 +16,20 @@ const formatDateTime = (date: string | null) => {
   }
 };
 
+/**
+ * /blog/[slug]`のリンクを生成
+ * @param {string} slug 記事ID
+ * @returns {string}
+ */
 export const getBlogLink = (slug: string) => {
   return `/blog/${slug}`;
 };
 
+/**
+ * Dates get date str
+ * @param date
+ * @returns
+ */
 export const getDateStr = date => {
   return formatDateTime(date);
 };
