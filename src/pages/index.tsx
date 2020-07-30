@@ -75,7 +75,7 @@ export default ({ posts = [], preview }) => {
           </div>
         </div>
       )}
-      <div className="mb-20">
+      <div className="pb-20">
         {posts.length === 0 && <p>There are no posts yet</p>}
         {posts.map(post => {
           return (

@@ -514,7 +514,7 @@ const RenderPost = props => {
       </div>
       <hr />
 
-      <div className="flex flex-row mb-10 mt-4">
+      <div className="flex flex-row pb-10 pt-4">
         <div className="flex w-1/2 flex-1">
           {beforePost && (
             <SiblingPost
