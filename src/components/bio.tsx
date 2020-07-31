@@ -10,18 +10,14 @@ interface BioProps {}
 const Bio: React.FC<BioProps> = () => {
   const { author } = siteMetadata;
   return (
-    <div className="flex mb-6">
+    <div className="flex mb-6 items-center">
       <img
         src="/profile-pic_thumb.jpg"
         alt="avatar"
-        width={50}
-        className="rounded-full mr-4"
-        style={{
-          height: '50px'
-        }}
+        className="rounded-full mr-4 w-16 h-16 self-start"
       />
-      <div className="text-sm">
-        <div className="mb-2 md:mb-0">
+      <div>
+        <div className="mb-2 md:mb-1">
           Written by <strong>{author.name}</strong> who lives and works in Tokyo
           building useful things.
         </div>

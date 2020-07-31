@@ -5,6 +5,7 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
+import Bio from '../../components/bio';
 import components from '../../components/dynamic';
 import Header from '../../components/header';
 import Heading from '../../components/heading';
@@ -482,8 +483,9 @@ const RenderPost = props => {
         })}
       </div>
 
+      <hr className="pb-4" />
+      <Bio />
       <hr />
-
       <div className="flex flex-row pb-10 pt-4">
         <div className="flex w-1/2 flex-1">
           {beforePost && (
