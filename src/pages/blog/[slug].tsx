@@ -1,4 +1,3 @@
-import FsLightbox from 'fslightbox-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
@@ -9,6 +8,7 @@ import ReactJSXParser from '@zeit/react-jsx-parser';
 import components from '../../components/dynamic';
 import Header from '../../components/header';
 import Heading from '../../components/heading';
+import ImageModal from '../../components/imageModal';
 import SiblingPost from '../../components/siblingPost';
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
@@ -97,24 +97,7 @@ const listTypes = new Set(['bulleted_list', 'numbered_list']);
 const RenderPost = props => {
   const { post, beforePost, afterPost, redirect, preview } = props;
   const router = useRouter();
-  const imageSrcs: {
-    id: string;
-    src: string;
-  }[] = [];
-  const [lightboxController, setLightboxController] = useState({
-    toggler: false,
-    slide: 1
-  });
-
-  // 指定の画像をlightboxで開く
-  function openLightboxOnSlide(selectImageId) {
-    const slideIndex =
-      imageSrcs.findIndex(({ id }) => id === selectImageId) + 1;
-    setLightboxController({
-      toggler: !lightboxController.toggler,
-      slide: slideIndex
-    });
-  }
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   let listTagName: string | null = null;
   let listLastId: string | null = null;
@@ -167,24 +150,6 @@ const RenderPost = props => {
     );
   }
 
-  // lightbox用の画像を選別
-  (post.content || []).map(block => {
-    const { value } = block;
-    const { type, id } = value;
-    if (type === 'image') {
-      const { format = {} } = value;
-      const { display_source } = format;
-
-      const src = `/api/asset?assetUrl=${encodeURIComponent(
-        display_source as any
-      )}&blockId=${id}`;
-      imageSrcs.push({
-        id,
-        src
-      });
-    }
-  });
-
   return (
     <>
       <Header titlePre={post.Page} />
@@ -199,13 +164,12 @@ const RenderPost = props => {
           </div>
         </div>
       )}
-
-      {imageSrcs.length > 0 && (
-        <FsLightbox
-          toggler={lightboxController.toggler}
-          sources={imageSrcs.map(({ src }) => src)}
-          type="image"
-          slide={lightboxController.slide}
+      {selectedImage && (
+        <ImageModal
+          onClose={() => {
+            setSelectedImage('');
+          }}
+          imageSrc={selectedImage}
         />
       )}
 
@@ -399,8 +363,13 @@ const RenderPost = props => {
                     autoPlay={!isImage}
                     style={childStyle}
                     loading={isImage ? 'lazy' : 'eager'}
+                    className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in"
                     onClick={() => {
-                      openLightboxOnSlide(id);
+                      const src = `/api/asset?assetUrl=${encodeURIComponent(
+                        display_source as any
+                      )}&blockId=${id}`;
+                      // 指定の画像をlightboxで開く
+                      setSelectedImage(src);
                     }}
                   />
                 );
@@ -512,6 +481,7 @@ const RenderPost = props => {
           return toRender;
         })}
       </div>
+
       <hr />
 
       <div className="flex flex-row pb-10 pt-4">

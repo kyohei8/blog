@@ -321,4 +321,8 @@ code.hljs {
   margin: 0 !important;
 }
 
+.image-modal {
+  background-color: rgba(2, 2, 2, 0.7);
+}
+
 @tailwind utilities;

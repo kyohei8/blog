@@ -1,7 +1,11 @@
 module.exports = {
   purge: ['./src/**/*.tsx'],
   theme: {
-    extend: {}
+    extend: {
+      cursor: {
+        'zoom-in': 'zoom-in'
+      }
+    }
   },
   variants: {
     textColor: ['responsive', 'hover', 'focus', 'active'],
