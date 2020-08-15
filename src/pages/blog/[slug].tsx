@@ -364,7 +364,7 @@ const RenderPost = props => {
                     autoPlay={!isImage}
                     style={childStyle}
                     loading={isImage ? 'lazy' : 'eager'}
-                    className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in"
+                    className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in shadow"
                     onClick={() => {
                       const src = `/api/asset?assetUrl=${encodeURIComponent(
                         display_source as any
