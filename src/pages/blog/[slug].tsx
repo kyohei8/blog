@@ -243,7 +243,7 @@ const RenderPost = props => {
                   key: listLastId!,
                   className: `${
                     listTagName === 'ul' ? 'list-disc' : 'list-decimal'
-                  } list-inside`
+                  } list-inside mb-6`
                 },
                 Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;

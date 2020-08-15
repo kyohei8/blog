@@ -163,6 +163,14 @@ h2 {
   padding-top: 1rem;
 }
 
+h3 {
+  font-size: 1.31951rem;
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
+  padding-top: 1rem;
+}
+
 p {
   line-height: 1.7;
   margin-bottom: 1.7rem;
