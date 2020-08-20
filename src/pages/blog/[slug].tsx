@@ -7,7 +7,7 @@ import ReactJSXParser from '@zeit/react-jsx-parser';
 
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
-import Header from '../../components/header';
+import { Header } from '../../components/header';
 import Heading from '../../components/heading';
 import ImageModal from '../../components/imageModal';
 import SiblingPost from '../../components/siblingPost';
@@ -16,6 +16,18 @@ import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getPageData from '../../lib/notion/getPageData';
 import { textBlock } from '../../lib/notion/renderers';
+
+type postDataType = {
+  Authors: string[];
+  Date: number;
+  Page: string;
+  Published: 'Yes' | 'No';
+  Slug: string;
+  Tags: string[];
+  content: any[];
+  id: string;
+  hasTweet?: boolean;
+};
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug }, preview }) {
@@ -92,10 +104,16 @@ export async function getStaticPaths() {
     fallback: true
   };
 }
+interface SlugProps {
+  post: postDataType;
+  beforePost: postDataType;
+  afterPost: postDataType;
+  redirect: string;
+  preview: boolean;
+}
 
 const listTypes = new Set(['bulleted_list', 'numbered_list']);
-
-const RenderPost = props => {
+const RenderPost: React.FC<SlugProps> = props => {
   const { post, beforePost, afterPost, redirect, preview } = props;
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -151,9 +169,34 @@ const RenderPost = props => {
     );
   }
 
+  let headerImageSrc = '';
+  if (post.content[0]) {
+    const { value } = post.content[0];
+
+    // ヘッダ画像
+    if (value.parent_table === 'collection') {
+      if (value.format && value.format.page_cover) {
+        if ((value.format.page_cover as string).startsWith('/images')) {
+          headerImageSrc = `https://www.notion.so${value.format.page_cover}`;
+        } else {
+          headerImageSrc = `/api/asset?assetUrl=${encodeURIComponent(
+            value.format.page_cover as string
+          )}&blockId=${value.id}`;
+        }
+      }
+    }
+  }
+
   return (
     <>
-      <Header titlePre={post.Page} />
+      <Header
+        titlePre={post.Page}
+        slug={post.Slug}
+        publishedTime={post.Date}
+        author={post.Authors[0]}
+        tags={post.Tags.length > 0 ? post.Tags.join(',') : ''}
+        headerImage={headerImageSrc}
+      />
       {preview && (
         <div>
           <div>
@@ -175,7 +218,21 @@ const RenderPost = props => {
       )}
 
       <div className="mb-20">
-        <h1 className="mb-0 text-2xl pb-2 border-b border-solid border-gray-400">
+        {headerImageSrc && (
+          <div>
+            <div className="h-64 mb-8"></div>
+            <div
+              className="h-64 absolute w-full left-0"
+              style={{ top: '78px' }}
+            >
+              <div
+                className="bg-center bg-cover w-full h-full"
+                style={{ backgroundImage: `url(${headerImageSrc})` }}
+              />
+            </div>
+          </div>
+        )}
+        <h1 className="mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
           {post.Page || ''}
         </h1>
         <div className="flex justify-between mb-6 px-1">

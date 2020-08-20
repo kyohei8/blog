@@ -35,6 +35,36 @@ export default async function loadTable(
   const schemaKeys = Object.keys(schema);
 
   for (const entry of entries) {
+    /**
+      {
+        id: 'fc1d3efd-e642-4ba9-a990-068fcaa2f930',
+        version: 241,
+        type: 'page',
+        properties: {
+          'S6_"': [ [Array] ], // slug
+          'a`af': [ [Array] ], // Date
+          'cby|': [ [Array] ], // tags
+          ijjk: [ [Array] ],  // user
+          'la`A': [ [Array] ], // published
+          title: [ [Array] ]
+        },
+        content: [
+          '8e782a9c-e63b-4075-bb4f-b73cd87a2840',
+          ...
+        ],
+        created_time: 1597761660000,
+        last_edited_time: 1597825260000,
+        parent_id: 'c6f13192-cf9e-4dc5-993c-a52761f74663',
+        parent_table: 'collection',
+        alive: true,
+        created_by_table: 'notion_user',
+        created_by_id: '87073fb0-023d-4a14-981a-4b3c10dcced0',
+        last_edited_by_table: 'notion_user',
+        last_edited_by_id: '87073fb0-023d-4a14-981a-4b3c10dcced0',
+        shard_id: 188898,
+        space_id: '68d88f28-7a7d-4505-ad96-02c5da02e1e2'
+      }
+     */
     const props = entry.value && entry.value.properties;
     const row: any = {};
 

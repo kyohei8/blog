@@ -16,24 +16,61 @@ const navItems: { label: string; page?: string; link?: string }[] = [
 ];
 */
 
-export default ({ titlePre = '' }) => {
-  const router = useRouter();
+interface HeaderProps {
+  titlePre?: string;
+  slug?: string;
+  publishedTime?: number;
+  author?: string;
+  tags?: string;
+  headerImage?: string;
+}
 
+const host =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:3000'
+    : 'https://1k6a.com';
+
+export const Header: React.FC<HeaderProps> = ({
+  titlePre = '',
+  publishedTime,
+  author,
+  slug,
+  tags,
+  headerImage
+}) => {
+  const router = useRouter();
+  const title = `${titlePre ? `${titlePre} | ` : ''}${siteMetadata.title}`;
+  const ogType = `${titlePre ? 'article' : 'website'}`;
+  const url = slug ? `${host}/blog/${slug}` : host;
   return (
     <header>
       <Head>
-        <title>
-          {titlePre ? `${titlePre} | ` : ''}
-          {siteMetadata.title}
-        </title>
+        <title>{title}</title>
         <meta name="description" content={siteMetadata.description} />
-        {/*
-        <meta name="og:title" content="My Notion Blog" />
-        <meta property="og:image" content={ogImageUrl} />
-        <meta name="twitter:site" content="@_ijjk" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={ogImageUrl} />
-         */}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={siteMetadata.description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:site_name" content={siteMetadata.title} />
+        <meta property="og:url" content={url} />
+        {headerImage && <meta property="og:image" content={headerImage} />}
+        {ogType === 'article' && (
+          <>
+            {publishedTime && (
+              <meta
+                property="article:published_time"
+                content={new Date(publishedTime).toISOString()}
+              />
+            )}
+            {author && <meta property="article:author" content={author} />}
+            {tags && <meta property="article:tag" content={tags} />}
+          </>
+        )}
+
+        <meta name="twitter:site" content="@kyoheiz" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={siteMetadata.description} />
+        {headerImage && <meta name="twitter:image" content={headerImage} />}
       </Head>
       <div className="mb-6">
         <Link href="/">

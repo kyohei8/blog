@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import ArticleRow from '../components/articleRow';
 import Bio from '../components/bio';
-import Header from '../components/header';
+import { Header } from '../components/header';
 import { getDateStr, postIsPublished } from '../lib/blog-helpers';
 import getBlogIndex from '../lib/notion/getBlogIndex';
 import getNotionUsers from '../lib/notion/getNotionUsers';
