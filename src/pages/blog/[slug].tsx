@@ -223,7 +223,7 @@ const RenderPost: React.FC<SlugProps> = props => {
             <div className="h-64 mb-8"></div>
             <div
               className="h-64 absolute w-full left-0"
-              style={{ top: '78px' }}
+              style={{ top: '54px' }}
             >
               <div
                 className="bg-center bg-cover w-full h-full"

@@ -72,7 +72,11 @@ export const Header: React.FC<HeaderProps> = ({
         <meta name="twitter:description" content={siteMetadata.description} />
         {headerImage && <meta name="twitter:image" content={headerImage} />}
       </Head>
-      <div className="mb-6">
+      <div
+        className={`${
+          router.pathname === '/' ? 'h-24' : 'h-12'
+        } flex items-center`}
+      >
         <Link href="/">
           {router.pathname === '/' ? (
             <a className="text-current text-4xl">{siteMetadata.title}</a>

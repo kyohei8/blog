@@ -6,7 +6,7 @@ import Footer from '../components/footer';
 export default ({ Component, pageProps }) => (
   <>
     <div
-      className="mx-auto max-w-3xl pt-6 px-3 min-h-screen"
+      className="mx-auto max-w-3xl min-h-screen"
       style={{
         paddingBottom: '68px',
         marginBottom: '-68px'
