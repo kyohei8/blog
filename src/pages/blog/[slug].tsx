@@ -15,6 +15,7 @@ import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getPageData from '../../lib/notion/getPageData';
+import { getPostPreview } from '../../lib/notion/getPostPreview';
 import { textBlock } from '../../lib/notion/renderers';
 
 type postDataType = {
@@ -24,6 +25,7 @@ type postDataType = {
   Published: 'Yes' | 'No';
   Slug: string;
   Tags: string[];
+  Preview: string;
   content: any[];
   id: string;
   hasTweet?: boolean;
@@ -75,6 +77,9 @@ export async function getStaticProps({ params: { slug }, preview }) {
       }
     }
   }
+
+  const postPreview = await getPostPreview(post.id);
+  post.Preview = postPreview || '';
 
   const { users } = await getNotionUsers(post.Authors || []);
   post.Authors = Object.keys(users).map(id => users[id].full_name);
@@ -196,6 +201,7 @@ const RenderPost: React.FC<SlugProps> = props => {
         author={post.Authors[0]}
         tags={post.Tags.length > 0 ? post.Tags.join(',') : ''}
         headerImage={headerImageSrc}
+        description={post.Preview}
       />
       {preview && (
         <div>

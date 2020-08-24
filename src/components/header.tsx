@@ -22,6 +22,7 @@ interface HeaderProps {
   publishedTime?: number;
   author?: string;
   tags?: string;
+  description?: string;
   headerImage?: string;
 }
 
@@ -36,10 +37,12 @@ export const Header: React.FC<HeaderProps> = ({
   author,
   slug,
   tags,
+  description,
   headerImage
 }) => {
   const router = useRouter();
   const title = `${titlePre ? `${titlePre} | ` : ''}${siteMetadata.title}`;
+  const desc = description ? description : siteMetadata.description;
   const ogType = `${titlePre ? 'article' : 'website'}`;
   const url = slug ? `${host}/blog/${slug}` : host;
   return (
@@ -48,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
         <title>{title}</title>
         <meta name="description" content={siteMetadata.description} />
         <meta property="og:title" content={title} />
-        <meta property="og:description" content={siteMetadata.description} />
+        <meta property="og:description" content={desc} />
         <meta property="og:type" content={ogType} />
         <meta property="og:site_name" content={siteMetadata.title} />
         <meta property="og:url" content={url} />
@@ -69,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
         <meta name="twitter:site" content="@kyoheiz" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={siteMetadata.description} />
+        <meta name="twitter:description" content={desc} />
         {headerImage && <meta name="twitter:image" content={headerImage} />}
       </Head>
       <div

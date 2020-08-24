@@ -27,14 +27,6 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
         <a style={{ boxShadow: `none` }}>{title}</a>
       </Link>
     </div>
-    {/*
-      <p
-        dangerouslySetInnerHTML={{
-          __html: node.frontmatter.description || node.excerpt
-        }}
-      />
-      <div>{node.excerpt}</div>
-    */}
   </div>
 );
 
