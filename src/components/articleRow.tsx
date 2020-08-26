@@ -20,9 +20,13 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
   draft
 }) => (
   <div className="flex justify-start items-start md:flex-row flex-col mb-3">
-    {draft && <span>Draft</span>}
     <small className="text-sm mr-2 mt-1">{date}</small>
-    <div className="flex flex-col justify-center flex-1">
+    <div className="flex justify-start items-center flex-1">
+      {draft && (
+        <span className="bg-orange-400 text-white text-xs px-2 rounded pb-px">
+          Draft
+        </span>
+      )}
       <Link href="/blog/[slug]" as={getBlogLink(slug)}>
         <a style={{ boxShadow: `none` }}>{title}</a>
       </Link>

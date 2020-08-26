@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
 import React, { CSSProperties, useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import components from '../../components/dynamic';
 import { Header } from '../../components/header';
 import Heading from '../../components/heading';
 import ImageModal from '../../components/imageModal';
+import PreviewModeNote from '../../components/previewModeNote';
 import SiblingPost from '../../components/siblingPost';
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
@@ -18,7 +18,7 @@ import getPageData from '../../lib/notion/getPageData';
 import { getPostPreview } from '../../lib/notion/getPostPreview';
 import { textBlock } from '../../lib/notion/renderers';
 
-type postDataType = {
+export type postDataType = {
   Authors: string[];
   Date: number;
   Page: string;
@@ -90,7 +90,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
       post,
       afterPost,
       beforePost,
-      preview: preview || false
+      previewMode: preview || false
     },
     unstable_revalidate: 10
   };
@@ -114,12 +114,12 @@ interface SlugProps {
   beforePost: postDataType;
   afterPost: postDataType;
   redirect: string;
-  preview: boolean;
+  previewMode: boolean;
 }
 
 const listTypes = new Set(['bulleted_list', 'numbered_list']);
 const RenderPost: React.FC<SlugProps> = props => {
-  const { post, beforePost, afterPost, redirect, preview } = props;
+  const { post, beforePost, afterPost, redirect, previewMode } = props;
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string>('');
 
@@ -203,17 +203,6 @@ const RenderPost: React.FC<SlugProps> = props => {
         headerImage={headerImageSrc}
         description={post.Preview}
       />
-      {preview && (
-        <div>
-          <div>
-            <b>Note:</b>
-            {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview?slug=${post.Slug}`}>
-              <button>Exit Preview</button>
-            </Link>
-          </div>
-        </div>
-      )}
       {selectedImage && (
         <ImageModal
           onClose={() => {
@@ -237,6 +226,9 @@ const RenderPost: React.FC<SlugProps> = props => {
               />
             </div>
           </div>
+        )}
+        {previewMode && (
+          <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
         <h1 className="mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
           {post.Page || ''}

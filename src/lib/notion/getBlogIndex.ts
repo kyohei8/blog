@@ -1,5 +1,7 @@
 // import { Sema } from 'async-sema';
 
+// import { lchmod } from 'fs';
+
 import { readFile, writeFile } from '../fs-helpers';
 import createTable from './createTable';
 // import { getPostPreview } from './getPostPreview';
@@ -15,8 +17,12 @@ export default async function getBlogIndex(previews = true) {
   if (useCache) {
     try {
       postsTable = JSON.parse(await readFile(cacheFile, 'utf8'));
+      console.log(`cache: "${cacheFile}"を利用します。`);
     } catch (_) {
       /* not fatal */
+      console.log(
+        `cache: "${cacheFile}"が存在しませんでした。サーバから取得します。`
+      );
     }
   }
 

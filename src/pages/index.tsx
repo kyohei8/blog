@@ -1,11 +1,16 @@
-import Link from 'next/link';
-
 import ArticleRow from '../components/articleRow';
 import Bio from '../components/bio';
 import { Header } from '../components/header';
+import PreviewModeNote from '../components/previewModeNote';
 import { getDateStr, postIsPublished } from '../lib/blog-helpers';
 import getBlogIndex from '../lib/notion/getBlogIndex';
 import getNotionUsers from '../lib/notion/getNotionUsers';
+import { postDataType } from './blog/[slug]';
+
+type IndexProps = {
+  posts: postDataType[];
+  previewMode: boolean;
+};
 
 export const siteMetadata = {
   title: `kyohei's blog`,
@@ -53,28 +58,19 @@ export async function getStaticProps({ preview }) {
 
   return {
     props: {
-      preview: preview || false,
+      previewMode: preview || false,
       posts
     },
     unstable_revalidate: 10 // 生成されてから10秒間は同一ページを表示し、10秒j移行にアクセスがあった場合、新しいページを作成する（処理が裏側で動き、次にアクセスした場合新しいものが生成される）。
   };
 }
 
-export default ({ posts = [], preview }) => {
+const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
   return (
     <>
       <Header />
       <Bio />
-      {preview && (
-        <div>
-          <div>
-            <b>Note:</b>Viewing in preview mode
-            <Link href={`/api/clear-preview`}>
-              <button>Exit Preview</button>
-            </Link>
-          </div>
-        </div>
-      )}
+      {previewMode && <PreviewModeNote clearHref={`/api/clear-preview`} />}
       <div className="pb-20">
         {posts.length === 0 && <p>There are no posts yet</p>}
         {posts.map(post => {
@@ -92,3 +88,5 @@ export default ({ posts = [], preview }) => {
     </>
   );
 };
+
+export default Index;
