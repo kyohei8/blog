@@ -270,22 +270,25 @@ const RenderPost: React.FC<SlugProps> = props => {
 
           // リストの表示
           if (isList) {
-            // 最初のタグ
-            if (!listTagName) {
-              listTagName = components[type === 'bulleted_list' ? 'ul' : 'ol'];
-            }
-            listLastId = `list${id}`;
+            if (properties?.title) {
+              // 最初のタグ
+              if (!listTagName) {
+                listTagName =
+                  components[type === 'bulleted_list' ? 'ul' : 'ol'];
+              }
+              listLastId = `list${id}`;
 
-            listMap[id] = {
-              key: id,
-              nested: [],
-              listTagName: components[type === 'bulleted_list' ? 'ul' : 'ol'],
-              children: textBlock(properties.title, true, id)
-            };
+              listMap[id] = {
+                key: id,
+                nested: [],
+                listTagName: components[type === 'bulleted_list' ? 'ul' : 'ol'],
+                children: textBlock(properties.title, true, id)
+              };
 
-            if (listMap[parent_id]) {
-              listMap[id].isNested = true;
-              listMap[parent_id].nested.push(id);
+              if (listMap[parent_id]) {
+                listMap[id].isNested = true;
+                listMap[parent_id].nested.push(id);
+              }
             }
           }
 
