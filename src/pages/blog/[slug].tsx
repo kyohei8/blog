@@ -215,10 +215,10 @@ const RenderPost: React.FC<SlugProps> = props => {
       <div className="mb-20">
         {headerImageSrc && (
           <div>
-            <div className="h-64 mb-8"></div>
+            <div className="h-64"></div>
             <div
               className="h-64 absolute w-full left-0"
-              style={{ top: '54px' }}
+              style={{ top: '48px' }}
             >
               <div
                 className="bg-center bg-cover w-full h-full"
@@ -230,7 +230,7 @@ const RenderPost: React.FC<SlugProps> = props => {
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
-        <h1 className="mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
+        <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
           {post.Page || ''}
         </h1>
         <div className="flex justify-between mb-6 px-1">
