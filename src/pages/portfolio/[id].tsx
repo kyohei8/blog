@@ -85,7 +85,12 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
             case 'image':
             case 'video':
             case 'embed': {
-              const { format = {} } = value;
+              const { format = {}, properties } = value;
+              const {
+                caption
+              }: {
+                caption?: string[];
+              } = properties;
               const {
                 block_width,
                 block_height,
@@ -154,15 +159,17 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
 
               toRender.push(
                 useWrapper ? (
-                  <div
-                    style={{
-                      paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-                      position: 'relative'
-                    }}
-                    className="asset-wrapper shadow-md mb-4"
-                    key={id}
-                  >
-                    {child}
+                  <div className="mb-8" key={id}>
+                    <div
+                      style={{
+                        paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
+                        position: 'relative'
+                      }}
+                      className="asset-wrapper shadow-md"
+                    >
+                      {child}
+                    </div>
+                    {caption && <div className="mt-1">{caption[0]}</div>}
                   </div>
                 ) : (
                   child
