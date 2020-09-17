@@ -1,13 +1,18 @@
 import rpc, { values } from './rpc';
 
-export default async function getPageData(pageId: string) {
+export default async function getPageData(
+  pageId: string,
+  removeTableBlocks = true
+) {
   try {
     const data = await loadPageChunk({ pageId });
     const blocks = values(data.recordMap.block);
 
-    if (blocks[0] && blocks[0].value.content) {
-      // remove table blocks
-      blocks.splice(1, 2);
+    if (removeTableBlocks) {
+      if (blocks[0] && blocks[0].value.content) {
+        // remove table blocks
+        blocks.splice(1, 2);
+      }
     }
 
     return { blocks };
