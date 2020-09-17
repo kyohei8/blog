@@ -30,25 +30,25 @@ class MyDocument extends Document {
 
           {/*-- Main Link Tags  --*/}
           <link
-            href="icons/favicon-16x16.png"
+            href="/icons/favicon-16x16.png"
             rel="icon"
             type="image/png"
             sizes="16x16"
           />
           <link
-            href="icons/favicon-32x32.png"
+            href="/icons/favicon-32x32.png"
             rel="icon"
             type="image/png"
             sizes="32x32"
           />
           <link
-            href="icons/favicon-48x48.png"
+            href="/icons/favicon-48x48.png"
             rel="icon"
             type="image/png"
             sizes="48x48"
           />
           {/* <!-- iOS  --> */}
-          <link href="icons/apple-touch-icon.png" rel="apple-touch-icon" />
+          <link href="/icons/apple-touch-icon.png" rel="apple-touch-icon" />
           {/*
           <link
             href="touch-icon-ipad.png"
@@ -72,18 +72,18 @@ class MyDocument extends Document {
 
           {/* <!-- Pinned Tab  --> */}
           <link
-            href="icons/sfari-pinned-tab.svg"
+            href="/icons/sfari-pinned-tab.svg"
             rel="mask-icon"
             color="#5bbad5"
           />
 
           {/* <!-- Android  --> */}
-          <link href="icons/icon-192x192.png" rel="icon" sizes="192x192" />
+          <link href="/icons/icon-192x192.png" rel="icon" sizes="192x192" />
           {/* <link href="icon-128x128.png" rel="icon" sizes="128x128" /> */}
 
           {/* <!-- Others --> */}
           <link
-            href="icons/favicon.ico"
+            href="/icons/favicon.ico"
             rel="shortcut icon"
             type="image/x-icon"
           />
