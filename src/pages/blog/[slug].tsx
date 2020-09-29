@@ -200,7 +200,7 @@ const RenderPost: React.FC<SlugProps> = props => {
         publishedTime={post.Date}
         author={post.Authors[0]}
         tags={post.Tags.length > 0 ? post.Tags.join(',') : ''}
-        headerImage={headerImageSrc}
+        ogBgImage={headerImageSrc}
         description={post.Preview}
       />
       {selectedImage && (

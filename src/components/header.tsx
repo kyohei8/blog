@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import * as qs from 'querystring';
 
 // import { useRouter } from 'next/router';
 import { siteMetadata } from '../pages';
@@ -23,7 +24,8 @@ interface HeaderProps {
   author?: string;
   tags?: string;
   description?: string;
-  headerImage?: string;
+  ogBgImage?: string;
+  ogTextColor?: string;
 }
 
 const host =
@@ -38,13 +40,33 @@ export const Header: React.FC<HeaderProps> = ({
   slug,
   tags,
   description,
-  headerImage
+  ogBgImage,
+  ogTextColor
 }) => {
   const router = useRouter();
   const title = `${titlePre ? `${titlePre} | ` : ''}${siteMetadata.title}`;
   const desc = description ? description : siteMetadata.description;
   const ogType = `${titlePre ? 'article' : 'website'}`;
   const url = slug ? `${host}/blog/${slug}` : host;
+
+  // og画像を生成
+  let ogImageUrl = '';
+  if (titlePre) {
+    const ogParams: any = {
+      title: titlePre
+    };
+    if (ogTextColor) {
+      ogParams.color = ogTextColor;
+    }
+    if (ogBgImage) {
+      ogParams.bg = ogBgImage;
+    }
+    if (tags) {
+      ogParams.tags = tags;
+    }
+    const query = qs.stringify(ogParams);
+    ogImageUrl = `https://1k6a-og-image.vercel.app/image?${query}`;
+  }
   return (
     <header>
       <Head>
@@ -55,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
         <meta property="og:type" content={ogType} />
         <meta property="og:site_name" content={siteMetadata.title} />
         <meta property="og:url" content={url} />
-        {headerImage && <meta property="og:image" content={headerImage} />}
+        {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
         {ogType === 'article' && (
           <>
             {publishedTime && (
@@ -73,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={desc} />
-        {headerImage && <meta name="twitter:image" content={headerImage} />}
+        {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
       </Head>
       <div
         className={`${
