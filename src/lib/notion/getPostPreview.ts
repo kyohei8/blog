@@ -15,11 +15,11 @@ export async function getPostPreview(pageId: string) {
       const titles: [string, any][] = blocks[i].value.properties.title;
       if (blocks[i].value.properties) {
         const blockText = titles.map(t => t[0]).join('');
+        previewText = previewText + blockText;
         // 足して150を超える場合はその時点でやめる
         if (previewText.length + blockText.length > 150) {
           break;
         }
-        previewText += titles.map(t => t[0]).join('');
       }
     }
   }
