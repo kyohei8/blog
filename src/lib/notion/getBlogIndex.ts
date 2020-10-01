@@ -9,8 +9,9 @@ import getTableData from './getTableData';
 import rpc, { values } from './rpc';
 import { BLOG_INDEX_CACHE, BLOG_INDEX_ID } from './server-constants';
 
-export default async function getBlogIndex(previews = true) {
-  let postsTable: any = null;
+// TODO any直す
+export default async function getBlogIndex(previews = true): Promise<any[]> {
+  let postsTable: any[] = null;
   const useCache = process.env.USE_CACHE === 'true';
   const cacheFile = `${BLOG_INDEX_CACHE}${previews ? '_previews' : ''}`;
 
@@ -54,7 +55,7 @@ export default async function getBlogIndex(previews = true) {
           err
         );
       }
-      return {};
+      return [];
     }
 
     /*

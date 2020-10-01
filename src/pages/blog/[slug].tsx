@@ -49,9 +49,25 @@ export async function getStaticProps({ params: { slug }, preview }) {
       unstable_revalidate: 5
     };
   }
+  let afterPost: any | null = null;
+  let beforePost: any | null = null;
   // 前後のpostを取得
-  const afterPost = postsTable[postIndex - 1] || null;
-  const beforePost = postsTable[postIndex + 1] || null;
+  for (let i = postIndex - 1; i >= 0; i--) {
+    const _afterPost = postsTable[i];
+    if (_afterPost && _afterPost.Published === 'No') {
+      continue;
+    }
+    afterPost = _afterPost;
+    break;
+  }
+  for (let i = postIndex + 1; i <= postsTable.length; i++) {
+    const _beforePost = postsTable[i];
+    if (_beforePost && _beforePost.Published === 'No') {
+      continue;
+    }
+    beforePost = _beforePost;
+    break;
+  }
 
   const postData = await getPageData(post.id);
   post.content = postData.blocks;
@@ -109,6 +125,7 @@ export async function getStaticPaths() {
     fallback: true
   };
 }
+
 interface SlugProps {
   post: postDataType;
   beforePost: postDataType;
