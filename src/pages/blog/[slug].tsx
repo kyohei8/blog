@@ -53,7 +53,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
   let beforePost: any | null = null;
   // 前後のpostを取得
   for (let i = postIndex - 1; i >= 0; i--) {
-    const _afterPost = postsTable[i];
+    const _afterPost = postsTable[i] || null;
     if (_afterPost && _afterPost.Published === 'No') {
       continue;
     }
@@ -61,13 +61,14 @@ export async function getStaticProps({ params: { slug }, preview }) {
     break;
   }
   for (let i = postIndex + 1; i <= postsTable.length; i++) {
-    const _beforePost = postsTable[i];
+    const _beforePost = postsTable[i] || null;
     if (_beforePost && _beforePost.Published === 'No') {
       continue;
     }
     beforePost = _beforePost;
     break;
   }
+  console.log(beforePost);
 
   const postData = await getPageData(post.id);
   post.content = postData.blocks;
