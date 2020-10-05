@@ -96,6 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={desc} />
         {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div
         className={`${
