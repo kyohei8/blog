@@ -70,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header>
       <Head>
-        <title>{title}</title>
+        <title>{title}test</title>
         <meta name="description" content={siteMetadata.description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={desc} />
