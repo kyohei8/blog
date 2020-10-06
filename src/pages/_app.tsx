@@ -1,9 +1,15 @@
 import '../styles/global.css';
 import '@highlightjs/cdn-assets/styles/tomorrow-night-eighties.min.css';
 
+import { AppProps } from 'next/app';
+import * as React from 'react';
+
 import Footer from '../components/footer';
 
-export default ({ Component, pageProps }) => (
+/**
+ * _app
+ */
+const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
     <div
       className="mx-auto max-w-3xl min-h-screen"
@@ -17,3 +23,5 @@ export default ({ Component, pageProps }) => (
     <Footer />
   </>
 );
+
+export default MyApp;

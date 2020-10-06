@@ -1,6 +1,12 @@
 import Link from 'next/link';
+import * as React from 'react';
 
-export default () => (
+interface FooterProps {}
+
+/**
+ * Footer
+ */
+const Footer: React.FC<FooterProps> = () => (
   <>
     <footer className="text-xs text-center py-4 text-gray-700 bg-gray-200">
       © {new Date().getFullYear()},{' '}
@@ -12,3 +18,4 @@ export default () => (
     </footer>
   </>
 );
+export default Footer;
