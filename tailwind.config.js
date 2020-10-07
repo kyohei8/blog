@@ -15,5 +15,9 @@ module.exports = {
   plugins: [
     require('@neojp/tailwindcss-line-clamp-utilities')
     // require('@tailwindcss/custom-forms')
-  ]
+  ],
+  future: {
+    purgeLayersByDefault: true,
+    removeDeprecatedGapUtilities: true
+  }
 };
