@@ -68,7 +68,6 @@ export async function getStaticProps({ params: { slug }, preview }) {
     beforePost = _beforePost;
     break;
   }
-  console.log(beforePost);
 
   const postData = await getPageData(post.id);
   post.content = postData.blocks;
