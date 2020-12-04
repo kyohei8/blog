@@ -1814,10 +1814,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@highlightjs/cdn-assets@^10.1.2":
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/@highlightjs/cdn-assets/-/cdn-assets-10.2.1.tgz#e9e59aacbb6c212fb48cb51a165c29727cfbcdef"
-  integrity sha512-Pnsha5BkS3FSSqpp6uHUSxqy4ISQHInGjpudvCsURMpgOTgijkQwE3dlVSbvtiJga5mo80eeuxn+AfbvXmvctA==
+"@highlightjs/cdn-assets@^10.4.1":
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/@highlightjs/cdn-assets/-/cdn-assets-10.4.1.tgz#261bc7a391cd22e86e19ba809a9b997ca37f1514"
+  integrity sha512-dJ6ZNFZ0TIatflV7h+5S6swUrc+hfivRgylKCcUk4+sb2Gi7uj5rSSv3x0p/fwIpyYlrKhxA2LqtdVBZ1Evk5Q==
 
 "@neojp/tailwindcss-line-clamp-utilities@^1.0.1":
   version "1.0.1"
