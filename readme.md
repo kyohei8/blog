@@ -18,7 +18,8 @@ Notion の API は現状「非公開」なので、予告なく止まる可能�
 ## 始め方
 
 - Notion トークンの取得
-- ブログの IndexID を Notion ページから取得
+  - chrome 等で notion にログインし、Cookie に保存されている token_v2 の値を NOTION_TOKEN に指定
+- ブログの IndexID を Notion ページ（URL パスの接尾辞）から取得
 
 ```
 $ yarn
@@ -42,6 +43,16 @@ $ NOTION_TOKEN='xyz...' BLOG_INDEX_ID='...' yarn start
 ```
 
 ## デプロイ
+
+トークンの登録（トークンの有効期限があるのかたまにやらないといけないかも）
+
+```
+$ vercel secrets add NOTION_TOKEN abcdef...
+$ vercel secrets add BLOG_INDEX_ID abcdef...
+```
+
+vercel の画面上で`@notion_token`等を NOTION_TOKEN に指定する
+![vercel_setting_env](./vc_env.jpg)
 
 プレビューのデプロイ
 
