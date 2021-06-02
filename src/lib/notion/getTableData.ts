@@ -144,6 +144,16 @@ export default async function loadTable(
       table.push(row);
     }
   }
-  // 逆順にする
-  return table.reverse();
+
+  // 日付順にする
+  table.sort((a, b) => {
+    if (a.Date < b.Date) {
+      return 1;
+    }
+    if (a.Date > b.Date) {
+      return -1;
+    }
+    return 0;
+  });
+  return table; //.reverse();
 }
