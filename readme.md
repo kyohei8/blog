@@ -15,6 +15,8 @@
 
 Notion の API は現状「非公開」なので、予告なく止まる可能性があります。
 
+→ 2021/05/14 public beta になった。https://developers.notion.com/ 🙌
+
 ## 始め方
 
 - Notion トークンの取得
