@@ -8,6 +8,7 @@ interface ArticleRowProps {
   date: string;
   slug: string;
   draft: boolean;
+  icon?: string;
 }
 
 /**
@@ -17,6 +18,7 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
   date,
   title,
   slug,
+  icon,
   draft
 }) => (
   <div className="flex justify-start items-start md:flex-row flex-col mb-3">
@@ -28,7 +30,9 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
         </span>
       )}
       <Link href="/blog/[slug]" as={getBlogLink(slug)}>
-        <a style={{ boxShadow: `none` }}>{title}</a>
+        <a style={{ boxShadow: `none` }}>
+          {icon && <span className="text-lg">{icon}</span>}&nbsp;{title}
+        </a>
       </Link>
     </div>
   </div>

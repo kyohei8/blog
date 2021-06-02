@@ -29,6 +29,7 @@ export type postDataType = {
   content: any[];
   id: string;
   hasTweet?: boolean;
+  Icon?: string;
 };
 
 // Get the data for each blog post

@@ -80,6 +80,7 @@ const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
               date={getDateStr(post.Date)}
               title={post.Page}
               slug={post.Slug}
+              icon={post.Icon}
               draft={!postIsPublished(post)}
             />
           );

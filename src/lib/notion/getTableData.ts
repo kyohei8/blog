@@ -10,9 +10,19 @@ type postDataType = {
   Slug: string;
   Date: number | null;
   Tags: string | null;
+  Icon?: string;
   Authors: string[] | null;
   Published: 'Yes' | 'No';
 };
+
+type pageFormat =
+  | {
+      page_icon?: string; // as Emoji
+      page_cover?: string; // カバー画像パス ('/images/page-cover/xxx.jpg')
+      page_cover_position?: number; // カバーポジション (0〜1?)
+      // 他にもあるかも・・
+    }
+  | undefined;
 
 export default async function loadTable(
   collectionBlock: any,
@@ -33,6 +43,7 @@ export default async function loadTable(
   const colId = Object.keys(col.recordMap.collection)[0];
   const schema = col.recordMap.collection[colId].value.schema;
   const schemaKeys = Object.keys(schema);
+  // console.log(entries);
 
   for (const entry of entries) {
     /**
@@ -66,6 +77,8 @@ export default async function loadTable(
       }
      */
     const props = entry.value && entry.value.properties;
+    // ページアイコンはこのformatの中にある
+    const format: pageFormat = entry.value && entry.value.format;
     const row: any = {};
 
     if (!props) continue;
@@ -131,8 +144,12 @@ export default async function loadTable(
       row[schema[key].name] = val || null;
     });
 
-    // auto-generate slug from title
+    // Slugがない場合はtitleからslugをauto-generateする
     row.Slug = normalizeSlug(row.Slug || slugger.slug(row.Page || ''));
+
+    if (format && format.page_icon) {
+      row.Icon = format.page_icon;
+    }
 
     const key = row.Slug;
     if (isPosts && !key) continue;
