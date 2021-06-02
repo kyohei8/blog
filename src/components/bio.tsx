@@ -19,7 +19,7 @@ const Bio: React.FC<BioProps> = () => {
       <div>
         <div className="mb-2 md:mb-1">
           Written by <strong>{author.name}</strong> who lives and works in Tokyo
-          building useful things.
+          🇯🇵 , building useful things 🔧.
         </div>
         {Object.keys(author.contacts).map(key => {
           return (
