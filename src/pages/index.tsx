@@ -61,7 +61,7 @@ export async function getStaticProps({ preview }) {
       previewMode: preview || false,
       posts
     },
-    unstable_revalidate: 10 // 生成されてから10秒間は同一ページを表示し、10秒j移行にアクセスがあった場合、新しいページを作成する（処理が裏側で動き、次にアクセスした場合新しいものが生成される）。
+    unstable_revalidate: 60 // 生成されてからn秒間は同一ページを表示し、60秒移行後にアクセスがあった場合、新しいページを作成する（処理が裏側で動き、次にアクセスした場合新しいものが生成される）。
   };
 }
 
