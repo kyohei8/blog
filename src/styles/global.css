@@ -200,6 +200,19 @@ blockquote {
   word-break: break-word;
 }
 
+.callout {
+  display: flex;
+  background-color: #eeeeee;
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+.callout > div:nth-child(1) {
+  font-family: Segoe UI Symbol;
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+
 .slice {
   position: relative;
 }
@@ -317,6 +330,8 @@ code {
 pre.hljs-pre {
   padding: 0.9rem !important;
   margin: 0 !important;
+  line-height: 1.4;
+  font-size: 14px;
   background: #2d2d2d;
   color: #ccc;
   overflow-x: auto;

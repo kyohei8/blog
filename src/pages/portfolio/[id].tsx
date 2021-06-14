@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const pageId = params.id || '';
   let post: any = {};
   try {
-    const postData = await getPageData(normalizeId(pageId as string), false);
+    const postData = await getPageData(normalizeId(pageId as string));
     post.content = postData.blocks;
   } catch (err) {
     console.warn(
