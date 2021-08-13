@@ -21,7 +21,7 @@
     "dayjs": "^1.8.29",
     "github-slugger": "^1.2.1",
     "highlight.js": "^10.4.1",
-    "next": "9.4.4",
+    "next": "11.1.0",
     "next-pwa": "^3.1.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
