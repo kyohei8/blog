@@ -3,7 +3,7 @@
 // import { lchmod } from 'fs';
 
 import { readFile, writeFile } from '../fs-helpers';
-import createTable from './createTable';
+// import createTable from './createTable';
 // import { getPostPreview } from './getPostPreview';
 import getTableData from './getTableData';
 import rpc, { values } from './rpc';
@@ -47,7 +47,7 @@ export default async function getBlogIndex(previews = true): Promise<any[]> {
         `Failed to load Notion posts, attempting to auto create table`
       );
       try {
-        await createTable();
+        // await createTable();
         console.log(`Successfully created table in Notion`);
       } catch (err) {
         console.error(
