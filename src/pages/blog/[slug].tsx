@@ -17,6 +17,7 @@ import getNotionUsers from '../../lib/notion/getNotionUsers';
 import getPageData from '../../lib/notion/getPageData';
 import { getPostPreview } from '../../lib/notion/getPostPreview';
 import { textBlock } from '../../lib/notion/renderers';
+import blogStyles from '../../styles/blog.module.css';
 
 export type postDataType = {
   Authors: string[];
@@ -365,6 +366,59 @@ const RenderPost: React.FC<SlugProps> = props => {
             );
           };
 
+          const renderBookmark = ({ link, title, description, format }) => {
+            const { bookmark_icon: icon, bookmark_cover: cover } = format;
+            toRender.push(
+              <div className={blogStyles.bookmark} key={link}>
+                <div>
+                  <div style={{ display: 'flex' }}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={blogStyles.bookmarkContentsWrapper}
+                      href={link}
+                    >
+                      <div
+                        role="button"
+                        className={blogStyles.bookmarkContents}
+                      >
+                        <div className={blogStyles.bookmarkInfo}>
+                          <div className={blogStyles.bookmarkTitle}>
+                            {title}
+                          </div>
+                          <div className={blogStyles.bookmarkDescription}>
+                            {description}
+                          </div>
+                          <div className={blogStyles.bookmarkLinkWrapper}>
+                            <img
+                              src={icon}
+                              className={blogStyles.bookmarkLinkIcon}
+                            />
+                            <div className={blogStyles.bookmarkLink}>
+                              {link}
+                            </div>
+                          </div>
+                        </div>
+                        {cover && (
+                          <div className={blogStyles.bookmarkCoverWrapper1}>
+                            <div className={blogStyles.bookmarkCoverWrapper2}>
+                              <div className={blogStyles.bookmarkCoverWrapper3}>
+                                <img
+                                  src={cover}
+                                  className={blogStyles.bookmarkCover}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
           switch (type) {
             case 'page':
             case 'divider':
@@ -478,6 +532,11 @@ const RenderPost: React.FC<SlugProps> = props => {
               break;
             case 'sub_sub_header':
               renderHeading('h3');
+              break;
+            case 'bookmark':
+              const { link, title, description } = properties;
+              const { format = {} } = value;
+              renderBookmark({ link, title, description, format });
               break;
             case 'code': {
               if (properties.title) {
