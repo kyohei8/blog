@@ -20,6 +20,7 @@
     'Helvetica Neue', sans-serif;
   --font-mono: SF Mono, menlo, consolas, Monaco, Andale Mono, Ubuntu Mono,
     monospace;
+  --letter-space: 1.1px;
 }
 
 * {
@@ -52,14 +53,16 @@ a:hover {
   text-decoration: underline;
 }
 
-ul:first-child,
-ol:first-child {
-  padding: 0 0 0.3rem 1.6rem;
+li {
+  text-indent: -1.6rem;
+  margin-left: 1.6rem;
 }
 
 ul,
 ol {
   white-space: pre-wrap;
+  line-height: 1.7;
+  letter-spacing: var(--letter-space);
 }
 
 .links {
@@ -67,6 +70,7 @@ ol {
   text-align: center;
   justify-content: center;
   align-items: center;
+  margin-top: var(--gap);
 }
 
 .features {
@@ -122,10 +126,6 @@ figure {
   color: #999;
 }
 
-.links {
-  margin-top: var(--gap);
-}
-
 mark {
   padding: var(--gap-quarter);
   border-radius: var(--radius);
@@ -173,8 +173,9 @@ h3 {
 
 p {
   line-height: 1.7;
-  margin-bottom: 1.7rem;
+  margin-bottom: 1rem;
   white-space: pre-wrap;
+  letter-spacing: var(--letter-space);
 }
 pre {
   white-space: pre;
@@ -260,6 +261,7 @@ blockquote {
     monospace;
   display: inline-block;
   line-height: 1.4;
+  letter-spacing: 0;
 }
 
 :not(pre) > code[class*='language-'] {
@@ -285,6 +287,7 @@ p > code[class='language-text'] {
   border-radius: 4px;
   font-family: 'SF Mono', menlo, consolas, Monaco, 'Andale Mono', 'Ubuntu Mono',
     monospace;
+  letter-spacing: 0;
 }
 
 .gatsby-resp-image-wrapper {
@@ -323,6 +326,7 @@ p > code[class='language-text'] {
 code {
   font-family: var(--font-mono);
   @apply bg-gray-300 py-px px-1 mx-1 rounded-sm;
+  letter-spacing: 0;
 }
 
 /* codeタグにdisplay:blockを描くとlighthouseでエラーになるのでこちらに記述する */
