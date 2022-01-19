@@ -4,6 +4,8 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
+import Date from '../../components/articles/Date';
+import Tags from '../../components/articles/Tags';
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
 import { Header } from '../../components/header';
@@ -48,7 +50,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
         redirect: '/',
         preview: false
       },
-      unstable_revalidate: 5
+      revalidate: 5
     };
   }
   let afterPost: any | null = null;
@@ -110,7 +112,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
       beforePost,
       previewMode: preview || false
     },
-    unstable_revalidate: 10
+    revalidate: 10
   };
 }
 
@@ -231,7 +233,7 @@ const RenderPost: React.FC<SlugProps> = props => {
         />
       )}
 
-      <div className="mb-20">
+      <div className="mb-20 break-words">
         {headerImageSrc && (
           <div>
             <div className="h-64"></div>
@@ -249,30 +251,13 @@ const RenderPost: React.FC<SlugProps> = props => {
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
-        <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
-          {post.Page || ''}
-        </h1>
-        <div className="flex justify-between mb-6 px-1">
-          <div>
-            {post.Tags.length > 0 && (
-              <>
-                {post.Tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="inline-block mr-2 text-sm text-blue-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </>
-            )}
-          </div>
-          <div className="w-24 text-right">
-            {post.Date && (
-              <span className="text-sm text-gray-700">
-                {getDateStr(post.Date)}
-              </span>
-            )}
+        <div className="mb-6">
+          <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
+            {post.Page || ''}
+          </h1>
+          <div className="flex justify-between items-center">
+            <Tags tags={post.Tags} />
+            {post.Date && <Date date={getDateStr(post.Date)} />}
           </div>
         </div>
 
@@ -443,9 +428,11 @@ const RenderPost: React.FC<SlugProps> = props => {
               const roundFactor = Math.pow(10, 2);
               // calculate percentages
               const width = block_width
-                ? `${Math.round(
-                    (block_width / baseBlockWidth) * 100 * roundFactor
-                  ) / roundFactor}%`
+                ? `${
+                    Math.round(
+                      (block_width / baseBlockWidth) * 100 * roundFactor
+                    ) / roundFactor
+                  }%`
                 : block_height || '100%';
 
               const isImage = type === 'image';

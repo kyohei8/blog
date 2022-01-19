@@ -45,8 +45,6 @@ if (!BLOG_INDEX_ID) {
 }
 
 module.exports = withPWA({
-  target: 'experimental-serverless-trace',
-
   webpack(cfg, { dev, isServer }) {
     // only compile build-rss in production server build
     if (dev || !isServer) return cfg;

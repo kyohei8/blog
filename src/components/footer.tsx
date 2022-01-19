@@ -8,13 +8,15 @@ interface FooterProps {}
  */
 const Footer: React.FC<FooterProps> = () => (
   <>
-    <footer className="text-xs text-center py-4 text-gray-700 bg-gray-200">
-      © {new Date().getFullYear()},{' '}
-      <Link href="/">
-        <a className="text-gray-700">kyohei</a>
-      </Link>
-      <br />
-      Built with Notion with vercel
+    <footer className="text-xs text-center flex justify-center items-center text-gray-700 bg-gray-200 h-12">
+      <div>
+        © {new Date().getFullYear()},{' '}
+        <Link href="/">
+          <a className="text-gray-700">kyohei tsukuda</a>
+        </Link>
+        <br />
+        Built with Notion with vercel
+      </div>
     </footer>
   </>
 );
