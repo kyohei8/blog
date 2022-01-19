@@ -231,7 +231,7 @@ const RenderPost: React.FC<SlugProps> = props => {
         />
       )}
 
-      <div className="mb-20">
+      <div className="mb-20 break-words">
         {headerImageSrc && (
           <div>
             <div className="h-64"></div>

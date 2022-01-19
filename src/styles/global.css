@@ -20,7 +20,7 @@
     'Helvetica Neue', sans-serif;
   --font-mono: SF Mono, menlo, consolas, Monaco, Andale Mono, Ubuntu Mono,
     monospace;
-  --letter-space: 1.1px;
+  --letter-space: 0.025rem;
 }
 
 * {
@@ -47,6 +47,7 @@ a {
   font-weight: 400;
   color: #e10d88;
   text-decoration: none;
+  word-break: break-all;
 }
 a:hover {
   @apply text-pink-500;
@@ -115,15 +116,11 @@ ol {
   background: var(--bg);
   margin: var(--gap-half) auto;
 }
-figure {
-  font-size: 0.85rem;
-  color: #999;
-  line-height: 1.8;
-}
 
 figure {
   font-size: 0.85rem;
   color: #999;
+  line-height: 1.8;
 }
 
 mark {
