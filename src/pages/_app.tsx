@@ -128,7 +128,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       )}
     </Head>
     <div
-      className="mx-auto max-w-3xl min-h-screen"
+      className="mx-4 md:mx-auto max-w-3xl min-h-screen"
       style={{
         paddingBottom: '68px',
         marginBottom: '-68px'
