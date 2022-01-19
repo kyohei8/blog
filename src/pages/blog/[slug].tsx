@@ -4,6 +4,8 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
+import Date from '../../components/articles/Date';
+import Tags from '../../components/articles/Tags';
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
 import { Header } from '../../components/header';
@@ -249,30 +251,13 @@ const RenderPost: React.FC<SlugProps> = props => {
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
-        <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
-          {post.Page || ''}
-        </h1>
-        <div className="flex justify-between mb-6 px-1">
-          <div>
-            {post.Tags.length > 0 && (
-              <>
-                {post.Tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="inline-block mr-2 text-sm text-blue-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </>
-            )}
-          </div>
-          <div className="w-24 text-right">
-            {post.Date && (
-              <span className="text-sm text-gray-700">
-                {getDateStr(post.Date)}
-              </span>
-            )}
+        <div className="mb-6">
+          <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
+            {post.Page || ''}
+          </h1>
+          <div className="flex justify-between items-center">
+            <Tags tags={post.Tags} />
+            {post.Date && <Date date={getDateStr(post.Date)} />}
           </div>
         </div>
 
