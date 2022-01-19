@@ -4,7 +4,7 @@ import * as React from 'react';
 const Code = ({ children: text, language = 'plaintext' }) => {
   // 有効なlanguageかどうか
   const lang = hl.getLanguage(language)
-    ? hl.highlight(language, text)
+    ? hl.highlight(text, { language })
     : hl.highlightAuto(text);
   const code = lang.value;
 

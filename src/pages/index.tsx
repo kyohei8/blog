@@ -1,3 +1,5 @@
+import { GetStaticProps } from 'next';
+
 import ArticleRow from '../components/articleRow';
 import Bio from '../components/bio';
 import { Header } from '../components/header';
@@ -31,7 +33,7 @@ export const siteMetadata = {
   }
 };
 
-export async function getStaticProps({ preview }) {
+export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const postsTable = await getBlogIndex();
 
   const authorsToGet: Set<string> = new Set();
@@ -61,9 +63,9 @@ export async function getStaticProps({ preview }) {
       previewMode: preview || false,
       posts
     },
-    unstable_revalidate: 60 // 生成されてからn秒間は同一ページを表示し、60秒移行後にアクセスがあった場合、新しいページを作成する（処理が裏側で動き、次にアクセスした場合新しいものが生成される）。
+    revalidate: 60 // 生成されてからn秒間は同一ページを表示し、60秒移行後にアクセスがあった場合、新しいページを作成する（処理が裏側で動き、次にアクセスした場合新しいものが生成される）。
   };
-}
+};
 
 const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
   return (
