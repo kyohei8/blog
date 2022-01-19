@@ -31,7 +31,8 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
       )}
       <Link href="/blog/[slug]" as={getBlogLink(slug)}>
         <a style={{ boxShadow: `none` }}>
-          {icon && <span className="text-lg">{icon}</span>}&nbsp;{title}
+          {icon && <span className="text-lg">{icon}&nbsp;</span>}
+          {title}
         </a>
       </Link>
     </div>
