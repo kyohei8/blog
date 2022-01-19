@@ -73,7 +73,7 @@ const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
       <Header />
       <Bio />
       {previewMode && <PreviewModeNote clearHref={`/api/clear-preview`} />}
-      <div className="pb-20">
+      <div className="pb-12">
         {posts.length === 0 && <p>There are no posts yet</p>}
         {posts.map(post => {
           return (
