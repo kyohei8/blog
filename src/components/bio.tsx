@@ -1,6 +1,8 @@
 import { SocialIcon } from 'react-social-icons';
 
-import { siteMetadata } from '../pages';
+import { Avatar, Container, Spacer } from '@nextui-org/react';
+
+import { siteMetadata } from '../constant';
 
 interface BioProps {}
 
@@ -10,17 +12,15 @@ interface BioProps {}
 const Bio: React.FC<BioProps> = () => {
   const { author } = siteMetadata;
   return (
-    <div className="flex mb-6 items-center">
-      <img
-        src="/profile-pic_thumb.jpg"
-        alt="avatar"
-        className="rounded-full mr-4 w-16 h-16 self-start"
-      />
+    <Container fluid display="flex" alignItems="center" gap={0} wrap="nowrap">
+      <Avatar src="/profile-pic_thumb.jpg" size="xl" />
+      <Spacer x={1} />
       <div>
-        <div className="mb-2 md:mb-1">
+        <div>
           Written by <strong>{author.name}</strong> who lives and works in Tokyo
           🇯🇵 , building useful things 🔧.
         </div>
+        <Spacer y={0.25} />
         {Object.keys(author.contacts).map(key => {
           return (
             <SocialIcon
@@ -40,7 +40,7 @@ const Bio: React.FC<BioProps> = () => {
           );
         })}
       </div>
-    </div>
+    </Container>
   );
 };
 

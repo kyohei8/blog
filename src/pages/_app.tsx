@@ -1,12 +1,14 @@
-import '../styles/global.css';
+// import '../styles/global.css';
 import '@highlightjs/cdn-assets/styles/base16//tomorrow-night.min.css';
 
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import * as React from 'react';
 
+import { NextUIProvider } from '@nextui-org/react';
+
 import Footer from '../components/footer';
-import { siteMetadata } from './';
+import { siteMetadata, theme } from '../constant';
 
 /**
  * _app
@@ -127,9 +129,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
         </>
       )}
     </Head>
-    <div className="mx-4 md:mx-auto max-w-3xl min-h-screen -mb-12 pb-16">
+    <NextUIProvider theme={theme}>
       <Component {...pageProps} />
-    </div>
+    </NextUIProvider>
     <Footer />
   </>
 );

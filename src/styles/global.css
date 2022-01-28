@@ -1,5 +1,5 @@
-@tailwind base;
-@tailwind components;
+/* @tailwind base; */
+/* @tailwind components; */
 
 :root {
   --gap-quarter: 0.25rem;
@@ -349,4 +349,4 @@ code.hljs {
   background-color: rgba(2, 2, 2, 0.7);
 }
 
-@tailwind utilities;
+/* @tailwind utilities; */

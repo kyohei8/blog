@@ -1,5 +1,7 @@
-import Link from 'next/link';
+import NextLink from 'next/link';
 import * as React from 'react';
+
+import { Link, styled, Text } from '@nextui-org/react';
 
 interface FooterProps {}
 
@@ -7,17 +9,28 @@ interface FooterProps {}
  * Footer
  */
 const Footer: React.FC<FooterProps> = () => (
-  <>
-    <footer className="text-xs text-center flex justify-center items-center text-gray-700 bg-gray-200 h-12">
-      <div>
-        © {new Date().getFullYear()},{' '}
-        <Link href="/">
-          <a className="text-gray-700">kyohei tsukuda</a>
+  <StyledFooter>
+    <div>
+      © {new Date().getFullYear()},{' '}
+      <NextLink href="/" passHref prefetch={false}>
+        <Link>
+          <Text size="$xs">kyohei tsukuda</Text>
         </Link>
-        <br />
-        Built with Notion with vercel
-      </div>
-    </footer>
-  </>
+      </NextLink>
+      <br />
+      Built with Notion with vercel
+    </div>
+  </StyledFooter>
 );
+
+const StyledFooter = styled('footer', {
+  marginTop: '$20',
+  textAlign: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '$gray200',
+  height: '$16',
+  fontSize: '$xs'
+});
 export default Footer;

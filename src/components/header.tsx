@@ -1,10 +1,13 @@
 import Head from 'next/head';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import * as qs from 'querystring';
+import { useMemo } from 'react';
+
+import { Link, styled, Text } from '@nextui-org/react';
 
 // import { useRouter } from 'next/router';
-import { siteMetadata } from '../pages';
+import { siteMetadata } from '../constant';
 
 // import ExtLink from './ext-link';
 
@@ -48,6 +51,10 @@ export const Header: React.FC<HeaderProps> = ({
   const desc = description ? description : siteMetadata.description;
   const ogType = `${titlePre ? 'article' : 'website'}`;
   const url = slug ? `${host}/blog/${slug}` : host;
+
+  const isHome = useMemo(() => {
+    return router.pathname === '/';
+  }, [router.pathname]);
 
   // og画像を生成
   let ogImageUrl = '';
@@ -98,20 +105,16 @@ export const Header: React.FC<HeaderProps> = ({
         {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <div
-        className={`${
-          router.pathname === '/' ? 'h-24' : 'h-12'
-        } flex items-center`}
-      >
-        <Link href="/">
-          {router.pathname === '/' ? (
-            <a className="text-current text-4xl">{siteMetadata.title}</a>
-          ) : (
-            <a className="text-current text-xl">{siteMetadata.title}</a>
-          )}
-        </Link>
-      </div>
-      {/*
+      <StyledNav isHome={isHome}>
+        <NextLink href="/" prefetch={false} passHref>
+          <Link color="default">
+            <Text size={isHome ? 36 : 20} span>
+              {siteMetadata.title}
+            </Text>
+          </Link>
+        </NextLink>
+      </StyledNav>
+      {/* nav Items
       <ul>
         {navItems.map(({ label, page, link }) => (
           <li key={label}>
@@ -131,3 +134,18 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+
+const StyledNav = styled('nav', {
+  display: 'flex',
+  alignItems: 'center',
+  variants: {
+    isHome: {
+      true: {
+        height: '$24'
+      },
+      false: {
+        height: '$12'
+      }
+    }
+  }
+});

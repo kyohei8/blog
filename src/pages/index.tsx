@@ -1,6 +1,8 @@
 import { GetStaticProps } from 'next';
 
-import ArticleRow from '../components/articleRow';
+import { Container, Spacer, styled } from '@nextui-org/react';
+
+import ArticleRow from '../components/articles/articleRow';
 import Bio from '../components/bio';
 import { Header } from '../components/header';
 import PreviewModeNote from '../components/previewModeNote';
@@ -14,25 +16,10 @@ type IndexProps = {
   previewMode: boolean;
 };
 
-export const siteMetadata = {
-  title: `kyohei's blog`,
-  description: `A personal blog`,
-  siteUrl: `https://1k6a.com`,
-  disqusId: '1k6a',
-  author: {
-    name: 'Kyohei Tsukuda',
-    photo: '/photo.jpg',
-    bio: 'no bio',
-    contacts: {
-      email: 'mailto:tsukuda.kyouhei@gmail.com',
-      facebook: 'https://www.facebook.com/kyoheirt',
-      twitter: `https://twitter.com/kyoheiz`,
-      github: 'https://github.com/kyohei8'
-      // rss: '#'
-    }
-  }
-};
-
+/**
+ * get list of blog articles
+ * ISR
+ */
 export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const postsTable = await getBlogIndex();
 
@@ -69,14 +56,15 @@ export const getStaticProps: GetStaticProps = async ({ preview }) => {
 
 const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
   return (
-    <>
+    <Container sm gap={1}>
       <Header />
       <Bio />
+      <Spacer y={1} />
       {previewMode && <PreviewModeNote clearHref={`/api/clear-preview`} />}
-      <div className="pb-12">
-        {posts.length === 0 && <p>There are no posts yet</p>}
-        {posts.map(post => {
-          return (
+      {posts.length === 0 && <p>There are no posts yet</p>}
+      {posts.map(post => {
+        return (
+          <StyledRow>
             <ArticleRow
               key={post.Slug}
               date={getDateStr(post.Date)}
@@ -85,11 +73,15 @@ const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
               icon={post.Icon}
               draft={!postIsPublished(post)}
             />
-          );
-        })}
-      </div>
-    </>
+          </StyledRow>
+        );
+      })}
+    </Container>
   );
 };
+
+const StyledRow = styled('div', {
+  marginBottom: '$2'
+});
 
 export default Index;
