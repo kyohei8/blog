@@ -2,17 +2,18 @@ import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
 import React, { CSSProperties, useEffect, useState } from 'react';
 
+import { Container, Spacer, styled, Text, useModal } from '@nextui-org/react';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
 import Date from '../../components/articles/Date';
+import { renderHeading } from '../../components/articles/Heading';
+import SiblingPost from '../../components/articles/SiblingPost';
 import Tags from '../../components/articles/Tags';
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
 import { Header } from '../../components/header';
-import Heading from '../../components/heading';
 import ImageModal from '../../components/imageModal';
 import PreviewModeNote from '../../components/previewModeNote';
-import SiblingPost from '../../components/siblingPost';
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
@@ -213,8 +214,16 @@ const RenderPost: React.FC<SlugProps> = props => {
     }
   }
 
+  // 画像のモーダルONOFF
+  const { setVisible, bindings } = useModal();
+  useEffect(() => {
+    if (!bindings.open) {
+      setSelectedImage('');
+    }
+  }, [bindings.open, setSelectedImage]);
+
   return (
-    <>
+    <Container sm gap={1}>
       <Header
         titlePre={post.Page}
         slug={post.Slug}
@@ -225,15 +234,9 @@ const RenderPost: React.FC<SlugProps> = props => {
         description={post.Preview}
       />
       {selectedImage && (
-        <ImageModal
-          onClose={() => {
-            setSelectedImage('');
-          }}
-          imageSrc={selectedImage}
-        />
+        <ImageModal bindings={bindings} imageSrc={selectedImage} />
       )}
-
-      <div className="mb-20 break-words">
+      <div>
         {headerImageSrc && (
           <div>
             <div className="h-64"></div>
@@ -251,15 +254,32 @@ const RenderPost: React.FC<SlugProps> = props => {
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
-        <div className="mb-6">
-          <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
+        <Spacer y={1} />
+
+        <div>
+          <Text
+            h1
+            size="$md"
+            b
+            css={{
+              borderBottom: '1px solid $gray400',
+              paddingBottom: '$4'
+            }}
+          >
             {post.Page || ''}
-          </h1>
-          <div className="flex justify-between items-center">
+          </Text>
+          <Container
+            fluid
+            gap={0}
+            display="flex"
+            justify="space-between"
+            alignItems="center"
+          >
             <Tags tags={post.Tags} />
             {post.Date && <Date date={getDateStr(post.Date)} />}
-          </div>
+          </Container>
         </div>
+        <Spacer y={1} />
 
         {(!post.content || post.content.length === 0) && (
           <p>This post has no content</p>
@@ -301,12 +321,7 @@ const RenderPost: React.FC<SlugProps> = props => {
             toRender.push(
               React.createElement(
                 listTagName,
-                {
-                  key: listLastId!,
-                  className: `${
-                    listTagName === 'ul' ? 'list-disc' : 'list-decimal'
-                  } list-inside mb-6`
-                },
+                { key: listLastId! },
                 Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;
 
@@ -342,14 +357,6 @@ const RenderPost: React.FC<SlugProps> = props => {
             listLastId = null;
             listTagName = null;
           }
-
-          const renderHeading = (Type: string | React.ComponentType) => {
-            toRender.push(
-              <Heading key={id}>
-                <Type key={id}>{textBlock(properties.title, true, id)}</Type>
-              </Heading>
-            );
-          };
 
           const renderBookmark = ({ link, title, description, format }) => {
             const { bookmark_icon: icon, bookmark_cover: cover } = format;
@@ -487,6 +494,7 @@ const RenderPost: React.FC<SlugProps> = props => {
                         display_source as any
                       )}&blockId=${id}`;
                       // 指定の画像をlightboxで開く
+                      setVisible(true);
                       setSelectedImage(src);
                     }}
                   />
@@ -512,13 +520,13 @@ const RenderPost: React.FC<SlugProps> = props => {
               break;
             }
             case 'header':
-              renderHeading('h1');
+              toRender.push(renderHeading(id, properties.title, 'h1'));
               break;
             case 'sub_header':
-              renderHeading('h2');
+              toRender.push(renderHeading(id, properties.title, 'h2'));
               break;
             case 'sub_sub_header':
-              renderHeading('h3');
+              toRender.push(renderHeading(id, properties.title, 'h3'));
               break;
             case 'bookmark':
               const { link, title, description } = properties;
@@ -605,32 +613,21 @@ const RenderPost: React.FC<SlugProps> = props => {
         })}
       </div>
 
-      <hr className="pb-4" />
-      <Bio />
-      <hr />
-      <div className="flex flex-row pb-10 pt-4">
-        <div className="flex w-1/2 flex-1">
-          {beforePost && (
-            <SiblingPost
-              title={beforePost.Page}
-              url={getBlogLink(beforePost.Slug)}
-              chevron="left"
-            />
-          )}
-        </div>
-        <div className="w-px h-auto bg-gray-400 mx-4" />
-        <div className="flex w-1/2 flex-1">
-          {afterPost && (
-            <SiblingPost
-              title={afterPost.Page}
-              url={getBlogLink(afterPost.Slug)}
-              chevron="right"
-            />
-          )}
-        </div>
-      </div>
-    </>
+      <StyledBioBox>
+        <Bio />
+      </StyledBioBox>
+
+      <SiblingPost beforePost={beforePost} afterPost={afterPost} />
+    </Container>
   );
 };
+
+const StyledBioBox = styled('div', {
+  marginTop: '$16',
+  marginBottom: '$8',
+  padding: '$8 0',
+  borderTop: '1px solid $gray200',
+  borderBottom: '1px solid $gray200'
+});
 
 export default RenderPost;

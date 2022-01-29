@@ -61,8 +61,8 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
         passHref
       >
         <Link>
-          <Text color="$pink600">
-            {icon && <span className="text-lg">{icon}&nbsp;</span>}
+          <Text color="$primary">
+            {icon && <span>{icon}&nbsp;</span>}
             {title}
           </Text>
         </Link>

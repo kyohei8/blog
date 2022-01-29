@@ -64,9 +64,8 @@ const Index: React.FC<IndexProps> = ({ posts = [], previewMode }) => {
       {posts.length === 0 && <p>There are no posts yet</p>}
       {posts.map(post => {
         return (
-          <StyledRow>
+          <StyledRow key={post.Slug}>
             <ArticleRow
-              key={post.Slug}
               date={getDateStr(post.Date)}
               title={post.Page}
               slug={post.Slug}

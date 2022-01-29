@@ -144,7 +144,7 @@ const StyledNav = styled('nav', {
         height: '$24'
       },
       false: {
-        height: '$12'
+        height: '$16'
       }
     }
   }

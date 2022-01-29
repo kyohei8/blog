@@ -320,31 +320,6 @@ p > code[class='language-text'] {
   fill: #1e985a !important;
 }
 
-code {
-  font-family: var(--font-mono);
-  @apply bg-gray-300 py-px px-1 mx-1 rounded-sm;
-  letter-spacing: 0;
-}
-
-/* codeタグにdisplay:blockを描くとlighthouseでエラーになるのでこちらに記述する */
-/* code タグはinline要素にしないといけない */
-pre.hljs-pre {
-  padding: 0.9rem !important;
-  margin: 0 !important;
-  line-height: 1.4;
-  font-size: 14px;
-  background: #2d2d2d;
-  color: #ccc;
-  overflow-x: auto;
-}
-
-code.hljs {
-  display: inline;
-  overflow: hidden;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
 .image-modal {
   background-color: rgba(2, 2, 2, 0.7);
 }
