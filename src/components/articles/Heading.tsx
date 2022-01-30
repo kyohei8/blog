@@ -57,7 +57,13 @@ export const renderHeading = (
   );
 };
 
-const StyledHeading1 = styled('h1', {});
+const StyledHeading1 = styled('h1', {
+  fontSize: '1.75rem',
+  fontWeight: '$bold',
+  marginTop: '$16',
+  marginBottom: '$8'
+});
+
 const StyledHeading2 = styled('h2', {
   fontSize: '$md',
   fontWeight: '$normal',
