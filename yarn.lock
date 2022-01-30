@@ -1016,10 +1016,10 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.8.tgz#eae6d4c94dc8aae8ba177e2de02080339d0d4563"
   integrity sha512-tTga6OFfO2JS+Yt5hdryng259c/tzNgSWkdiU2E+RBHiysAIOta57n4PJ8iPahOSqEqjaToPI76wM+o441GaNQ==
 
-"@nextui-org/react@^1.0.2-beta.2":
-  version "1.0.2-beta.2"
-  resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-1.0.2-beta.2.tgz#76664d48b9c567ff84f328d3531cd1a98a7a51f1"
-  integrity sha512-2wlBQ1rhZu2ofgJ2kNO7b3RXn//+ozLlX18cnOx3VGzhCqM0onv9FPDxlTiruTAMQx1/BFYHr6fRyeD/G1e3Yw==
+"@nextui-org/react@^1.0.2-beta.3":
+  version "1.0.2-beta.3"
+  resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-1.0.2-beta.3.tgz#d224654aa54a9b316922fdfacdd79d8ffa1d9797"
+  integrity sha512-YkAXBc4f3Qfzf409BFZi9MAKj0lWArTb1L2ZASAKoBQKsxtRbVTko18Losjsjun/WwK4X8RiR9e8XlzYPm2RZA==
   dependencies:
     "@babel/runtime" "7.9.6"
     "@stitches/react" "1.2.6"
@@ -3372,10 +3372,10 @@ react-refresh@0.8.3:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-social-icons@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.npmjs.org/react-social-icons/-/react-social-icons-5.7.0.tgz"
-  integrity sha512-oQTK1jRtXhc3VOdhGzHJwTGQ/yRANXBqY62LrHNkdGl4EDINC/UdEa35OmxdZZAtsdwOj7mJSU2Cx1wmaGD5gw==
+react-social-icons@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/react-social-icons/-/react-social-icons-5.10.0.tgz#f18903cf05d9464ccb9e3f9d22675911feb426c3"
+  integrity sha512-AEuSwuOj3yKiB7MzyKXd3NJDXrFPGRVoBgKOWCD2p4FhRS+YLa3R6wezTQ8HPzjqwYrcqHy//YCzzHRlgF9EWg==
   dependencies:
     prop-types "^15.7.2"
 
