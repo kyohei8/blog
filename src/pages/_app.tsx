@@ -25,19 +25,9 @@ const globalStyles = globalCss({
     borderRadius: 0
   },
 
-  li: {
-    textIndent: '-1.6rem',
-    marginLeft: '1.6rem',
-    marginBottom: '0'
-  },
-
   'ul, ol': {
-    margin: '$2 $0 !important',
-    listStyleType: 'disc !important',
-    listStylePosition: 'inside',
-    whiteSpace: 'pre-wrap',
-    lineHeight: 1.7
-    // letterSpacing:
+    listStyleType: 'revert !important',
+    margin: '$3 $3 $3 $12 !important'
   },
 
   blockquote: {
@@ -54,14 +44,6 @@ const globalStyles = globalCss({
     borderLeft: '0.425rem solid hsla(0, 0%, 0%, 0.13)',
     wordBreak: 'break-word'
   }
-
-  /*
-  code: {
-    borderRadius: '2px!important',
-    backgroundColor: '#e2e2e2cc!important',
-    color: '$gray900!important'
-  }
-  */
 });
 
 /**

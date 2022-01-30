@@ -335,12 +335,7 @@ const RenderPost: React.FC<SlugProps> = props => {
                             // 次のリストのタグを取得
                             listMap[item.nested[0]].listTagName,
                             {
-                              key: item + 'sub-list',
-                              className: `${
-                                listMap[item.nested[0]].listTagName === 'ul'
-                                  ? 'list-disc'
-                                  : 'list-decimal'
-                              } list-inside`
+                              key: item + 'sub-list'
                             },
                             item.nested.map(nestedId => {
                               return createEl(listMap[nestedId]);
