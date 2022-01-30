@@ -182,7 +182,7 @@ pre :global(code) {
   -webkit-overflow-scrolling: touch;
 }
 
-blockquote {
+/* blockquote {
   font-style: italic;
   font-family: var(--font-mono);
   margin-top: 0;
@@ -196,7 +196,7 @@ blockquote {
   color: hsla(0, 0%, 0%, 0.6);
   border-left: 0.425rem solid hsla(0, 0%, 0%, 0.13);
   word-break: break-word;
-}
+} */
 
 .callout {
   display: flex;
@@ -302,22 +302,6 @@ p > code[class='language-text'] {
 
 .twitter-tweet {
   margin: auto;
-}
-
-.social-icon[href*='github']:hover .social-svg-mask {
-  fill: #181718 !important;
-}
-
-.social-icon[href*='twitter']:hover .social-svg-mask {
-  fill: #1da1f2 !important;
-}
-
-.social-icon[href*='facebook']:hover .social-svg-mask {
-  fill: #385898 !important;
-}
-
-.social-icon[href*='mailto']:hover .social-svg-mask {
-  fill: #1e985a !important;
 }
 
 .image-modal {
