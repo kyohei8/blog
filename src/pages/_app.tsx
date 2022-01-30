@@ -10,6 +10,7 @@ import { globalCss, NextUIProvider } from '@nextui-org/react';
 import Footer from '../components/footer';
 import { siteMetadata, theme } from '../constant';
 
+// !! importantを書かないと上書きされないことがあります！
 const globalStyles = globalCss({
   '*': { margin: 0, padding: 0, boxSizing: 'borderBox' },
   p: {
