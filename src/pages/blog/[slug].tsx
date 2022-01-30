@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Container, Spacer, styled, Text, useModal } from '@nextui-org/react';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
 import Date from '../../components/articles/Date';
+import { embedMedia, embedWebPage } from '../../components/articles/Embed';
 import { renderHeading } from '../../components/articles/Heading';
 import SiblingPost from '../../components/articles/SiblingPost';
 import Tags from '../../components/articles/Tags';
@@ -421,101 +422,18 @@ const RenderPost: React.FC<SlugProps> = props => {
               }
               break;
             case 'image':
-            case 'video':
+            case 'video': {
+              const comp = embedMedia(value, id, type, src => {
+                // 指定の画像をlightboxで開く
+                setVisible(true);
+                setSelectedImage(src);
+              });
+              toRender.push(comp);
+              break;
+            }
             case 'embed': {
-              const { format = {} } = value;
-              const {
-                block_width,
-                block_height,
-                display_source,
-                block_aspect_ratio
-              } = format;
-              const baseBlockWidth = 768;
-              const roundFactor = Math.pow(10, 2);
-              // calculate percentages
-              const width = block_width
-                ? `${
-                    Math.round(
-                      (block_width / baseBlockWidth) * 100 * roundFactor
-                    ) / roundFactor
-                  }%`
-                : block_height || '100%';
-
-              const isImage = type === 'image';
-              const Comp = isImage ? 'img' : 'video';
-              const useWrapper = block_aspect_ratio && !block_height;
-              const childStyle: CSSProperties = useWrapper
-                ? {
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    position: 'absolute',
-                    top: 0
-                  }
-                : {
-                    width,
-                    border: 'none',
-                    height: block_height,
-                    display: 'block',
-                    maxWidth: '100%'
-                  };
-
-              let child = null;
-
-              if (!isImage && !value.file_ids) {
-                // external resource use iframe
-                child = (
-                  <iframe
-                    style={childStyle}
-                    src={display_source}
-                    key={!useWrapper ? id : undefined}
-                    className={!useWrapper ? 'asset-wrapper' : undefined}
-                  />
-                );
-              } else {
-                // notion resource
-                child = (
-                  <Comp
-                    key={!useWrapper ? id : undefined}
-                    src={`/api/asset?assetUrl=${encodeURIComponent(
-                      display_source as any
-                    )}&blockId=${id}`}
-                    controls={!isImage}
-                    alt={`An ${isImage ? 'image' : 'video'} from Notion`}
-                    loop={!isImage}
-                    muted={!isImage}
-                    autoPlay={!isImage}
-                    style={childStyle}
-                    loading={isImage ? 'lazy' : 'eager'}
-                    className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in shadow"
-                    onClick={() => {
-                      const src = `/api/asset?assetUrl=${encodeURIComponent(
-                        display_source as any
-                      )}&blockId=${id}`;
-                      // 指定の画像をlightboxで開く
-                      setVisible(true);
-                      setSelectedImage(src);
-                    }}
-                  />
-                );
-              }
-
-              toRender.push(
-                useWrapper ? (
-                  <div
-                    style={{
-                      paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-                      position: 'relative'
-                    }}
-                    className="asset-wrapper shadow-md mb-4"
-                    key={id}
-                  >
-                    {child}
-                  </div>
-                ) : (
-                  child
-                )
-              );
+              const comp = embedWebPage(value, id);
+              toRender.push(comp);
               break;
             }
             case 'header':
@@ -622,10 +540,10 @@ const RenderPost: React.FC<SlugProps> = props => {
 };
 
 const StyledBioBox = styled('div', {
-  marginTop: '$16',
+  marginTop: '$24',
   marginBottom: '$8',
   padding: '$8 0',
-  borderTop: '1px solid $gray200',
+  borderTop: '1px solid $gray400',
   borderBottom: '1px solid $gray200'
 });
 
