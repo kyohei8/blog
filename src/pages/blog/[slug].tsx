@@ -260,7 +260,6 @@ const RenderPost: React.FC<SlugProps> = props => {
           <Text
             h1
             size="$md"
-            b
             css={{
               borderBottom: '1px solid $gray400',
               paddingBottom: '$4'

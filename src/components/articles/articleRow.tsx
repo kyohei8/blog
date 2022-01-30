@@ -60,11 +60,9 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
         prefetch={false}
         passHref
       >
-        <Link>
-          <Text color="$primary">
-            {icon && <span>{icon}&nbsp;</span>}
-            {title}
-          </Text>
+        <Link css={{ color: '$primary' }}>
+          {icon && <span>{icon}&nbsp;</span>}
+          {title}
         </Link>
       </NextLink>
     </div>

@@ -107,10 +107,13 @@ export const Header: React.FC<HeaderProps> = ({
       </Head>
       <StyledNav isHome={isHome}>
         <NextLink href="/" prefetch={false} passHref>
-          <Link color="default">
-            <Text size={isHome ? 36 : 20} span>
-              {siteMetadata.title}
-            </Text>
+          <Link
+            css={{
+              color: '$text',
+              fontSize: isHome ? '$lg' : '$sm'
+            }}
+          >
+            {siteMetadata.title}
           </Link>
         </NextLink>
       </StyledNav>

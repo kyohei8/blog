@@ -13,8 +13,8 @@ const Footer: React.FC<FooterProps> = () => (
     <div>
       © {new Date().getFullYear()},{' '}
       <NextLink href="/" passHref prefetch={false}>
-        <Link>
-          <Text size="inherit">kyohei tsukuda</Text>
+        <Link css={{ color: 'inherit' }}>
+          <span>kyohei tsukuda</span>
         </Link>
       </NextLink>
       <br />
