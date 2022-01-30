@@ -37,7 +37,23 @@ const globalStyles = globalCss({
     whiteSpace: 'pre-wrap',
     lineHeight: 1.7
     // letterSpacing:
+  },
+
+  blockquote: {
+    fontFamily: '$mono',
+    fontStyle: 'italic',
+    fontSize: '$base',
+    borderRadius: '1px!important',
+    backgroundColor: '#fdfdfd!important',
+    marginTop: '0!important',
+    padding: '$2 $4 $2 $8!important',
+    marginBottom: '$8!important',
+    lineHeight: 1.5,
+    color: ' hsla(0, 0%, 0%, 0.75)!important',
+    borderLeft: '0.425rem solid hsla(0, 0%, 0%, 0.13)',
+    wordBreak: 'break-word'
   }
+
   /*
   code: {
     borderRadius: '2px!important',
