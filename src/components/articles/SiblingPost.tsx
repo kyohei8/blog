@@ -18,7 +18,7 @@ const SiblingPost = ({
   afterPost
 }: SiblingPostProps): JSX.Element => (
   <StyledWrapper>
-    <StyledLinkWrapper>
+    <StyledLinkWrapper chevron="left">
       {beforePost && (
         <SiblingPostLink
           title={beforePost.Page}
@@ -28,7 +28,7 @@ const SiblingPost = ({
       )}
     </StyledLinkWrapper>
     <StyledBorder />
-    <StyledLinkWrapper css={{ textAlign: 'right' }}>
+    <StyledLinkWrapper chevron="right">
       {afterPost && (
         <SiblingPostLink
           title={afterPost.Page}
@@ -49,7 +49,19 @@ const StyledWrapper = styled('div', {
 });
 
 const StyledLinkWrapper = styled('div', {
-  width: '50%'
+  width: '50%',
+  display: 'flex',
+  alignItems: 'center',
+  variants: {
+    chevron: {
+      left: {
+        justifyContent: 'flex-start'
+      },
+      right: {
+        justifyContent: 'flex-end'
+      }
+    }
+  }
 });
 
 const StyledBorder = styled('div', {

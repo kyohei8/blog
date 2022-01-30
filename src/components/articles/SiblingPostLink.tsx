@@ -49,7 +49,10 @@ const StyledText = styled('span', {
   display: '-webkit-box',
   '-webkit-line-clamp': 1,
   '-webkit-box-orient': 'vertical',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  '@xs': {
+    '-webkit-line-clamp': 2
+  }
 });
 
 export default SiblingPostLink;
