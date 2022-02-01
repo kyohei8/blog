@@ -14,11 +14,11 @@ import { siteMetadata, theme } from '../constant';
 const globalStyles = globalCss({
   '*': { margin: 0, padding: 0, boxSizing: 'borderBox' },
   p: {
-    lineHeight: 1.7,
-    marginTop: 0,
-    marginBottom: '$8',
+    lineHeight: '1.7 !important',
+    marginTop: '0 !important',
+    marginBottom: '$6 !important',
     whiteSpace: 'pre-wrap',
-    letterSpacing: '0.025rem'
+    letterSpacing: '$wide !important'
   },
   pre: {
     whiteSpace: 'pre',

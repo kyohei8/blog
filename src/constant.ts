@@ -28,7 +28,7 @@ export const theme = createTheme({
     },
     colors: {
       primary: '#ff3412',
-      text: '#000000b3'
+      text: '#000000c3'
     },
     // "space": {},
     fontSizes: {
