@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 
 import { Container, Spacer, styled } from '@nextui-org/react';
 
-import ArticleRow from '../components/articles/articleRow';
+import ArticleRow from '../components/articles/ArticleRowItem';
 import Bio from '../components/bio';
 import { Header } from '../components/header';
 import PreviewModeNote from '../components/previewModeNote';
