@@ -1,0 +1,47 @@
+:not(pre) > code {
+  background-color: #dee2e7 !important;
+  color: inherit;
+  margin: 0 6px;
+  border-radius: 2px !important;
+}
+
+code:hover {
+  opacity: 1 !important;
+}
+
+.callout {
+  display: flex;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.callout > div:nth-child(1) {
+  font-family: Segoe UI Symbol;
+  font-size: 1.2rem;
+  margin-right: 0.9rem;
+}
+
+.twitter-tweet {
+  margin: auto;
+}
+
+.social-icon[href*='github']:hover .social-svg-mask {
+  fill: #181718 !important;
+}
+
+.social-icon[href*='twitter']:hover .social-svg-mask {
+  fill: #1da1f2 !important;
+}
+
+.social-icon[href*='facebook']:hover .social-svg-mask {
+  fill: #385898 !important;
+}
+
+.social-icon[href*='mailto']:hover .social-svg-mask {
+  fill: #1e985a !important;
+}
+
+.image-modal {
+  background-color: rgba(2, 2, 2, 0.7);
+}

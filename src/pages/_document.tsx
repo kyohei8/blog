@@ -5,7 +5,7 @@ const { Html, Head, Main, NextScript } = document;
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html>
         <Head />
         <body>
           <Main />

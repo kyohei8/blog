@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Text } from '@nextui-org/react';
+
 interface TagsProps {
   tags: string[];
 }
@@ -12,13 +14,16 @@ const Tags = ({ tags }: TagsProps): JSX.Element => (
     {tags.length > 0 && (
       <>
         {tags.map((tag: string, i) => (
-          <span
+          <Text
+            span
             key={tag}
-            className="inline-block text-sm mr-1 text-pink-500 italic"
+            color="$yellow600"
+            size="$xs"
+            css={{ fontStyle: 'italic' }}
           >
             {tag}
-            {i !== tags.length - 1 ? ',' : ''}
-          </span>
+            {i !== tags.length - 1 ? ', ' : ''}
+          </Text>
         ))}
       </>
     )}

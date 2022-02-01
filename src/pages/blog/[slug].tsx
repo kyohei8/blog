@@ -1,18 +1,21 @@
 import { useRouter } from 'next/router';
 import fetch from 'node-fetch';
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { Container, Spacer, styled, Text, useModal } from '@nextui-org/react';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
+import Cover from '../../components/articles/Cover';
 import Date from '../../components/articles/Date';
+import { embedMedia, embedWebPage } from '../../components/articles/Embed';
+import { renderHeading } from '../../components/articles/Heading';
+import SiblingPost from '../../components/articles/SiblingPost';
 import Tags from '../../components/articles/Tags';
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
 import { Header } from '../../components/header';
-import Heading from '../../components/heading';
 import ImageModal from '../../components/imageModal';
 import PreviewModeNote from '../../components/previewModeNote';
-import SiblingPost from '../../components/siblingPost';
 import { getBlogLink, getDateStr } from '../../lib/blog-helpers';
 import getBlogIndex from '../../lib/notion/getBlogIndex';
 import getNotionUsers from '../../lib/notion/getNotionUsers';
@@ -90,7 +93,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
           `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
         );
         const json = await res.json();
-        properties.html = json.html.split('<script')[0];
+        properties.html = (json as any).html.split('<script')[0];
         post.hasTweet = true;
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`);
@@ -171,6 +174,7 @@ const RenderPost: React.FC<SlugProps> = props => {
       }
     }
   }, []);
+
   useEffect(() => {
     if (redirect && !post) {
       router.replace(redirect);
@@ -196,12 +200,14 @@ const RenderPost: React.FC<SlugProps> = props => {
   }
 
   let headerImageSrc = '';
+  let headerImagePosition = 0.5;
   if (post.content[0]) {
     const { value } = post.content[0];
 
     // ヘッダ画像
     if (value.parent_table === 'collection') {
       if (value.format && value.format.page_cover) {
+        headerImagePosition = value.format.page_cover_position;
         if ((value.format.page_cover as string).startsWith('/images')) {
           headerImageSrc = `https://www.notion.so${value.format.page_cover}`;
         } else {
@@ -213,8 +219,16 @@ const RenderPost: React.FC<SlugProps> = props => {
     }
   }
 
+  // 画像のモーダルONOFF
+  const { setVisible, bindings } = useModal();
+  useEffect(() => {
+    if (!bindings.open) {
+      setSelectedImage('');
+    }
+  }, [bindings.open, setSelectedImage]);
+
   return (
-    <>
+    <Container sm gap={1}>
       <Header
         titlePre={post.Page}
         slug={post.Slug}
@@ -225,41 +239,43 @@ const RenderPost: React.FC<SlugProps> = props => {
         description={post.Preview}
       />
       {selectedImage && (
-        <ImageModal
-          onClose={() => {
-            setSelectedImage('');
-          }}
-          imageSrc={selectedImage}
-        />
+        <ImageModal bindings={bindings} imageSrc={selectedImage} />
       )}
-
-      <div className="mb-20 break-words">
+      <div>
         {headerImageSrc && (
-          <div>
-            <div className="h-64"></div>
-            <div
-              className="h-64 absolute w-full left-0"
-              style={{ top: '48px' }}
-            >
-              <div
-                className="bg-center bg-cover w-full h-full"
-                style={{ backgroundImage: `url(${headerImageSrc})` }}
-              />
-            </div>
-          </div>
+          <Cover
+            headerImageSrc={headerImageSrc}
+            headerImagePosition={headerImagePosition}
+          />
         )}
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />
         )}
-        <div className="mb-6">
-          <h1 className="mt-8 mb-0 text-2xl font-bold pb-2 border-b border-solid border-gray-400">
+        <Spacer y={1} />
+
+        <div>
+          <Text
+            h1
+            size="$md"
+            css={{
+              borderBottom: '1px solid $gray400',
+              paddingBottom: '$4'
+            }}
+          >
             {post.Page || ''}
-          </h1>
-          <div className="flex justify-between items-center">
+          </Text>
+          <Container
+            fluid
+            gap={0}
+            display="flex"
+            justify="space-between"
+            alignItems="center"
+          >
             <Tags tags={post.Tags} />
             {post.Date && <Date date={getDateStr(post.Date)} />}
-          </div>
+          </Container>
         </div>
+        <Spacer y={1} />
 
         {(!post.content || post.content.length === 0) && (
           <p>This post has no content</p>
@@ -301,12 +317,7 @@ const RenderPost: React.FC<SlugProps> = props => {
             toRender.push(
               React.createElement(
                 listTagName,
-                {
-                  key: listLastId!,
-                  className: `${
-                    listTagName === 'ul' ? 'list-disc' : 'list-decimal'
-                  } list-inside mb-6`
-                },
+                { key: listLastId! },
                 Object.keys(listMap).map(itemId => {
                   if (listMap[itemId].isNested) return null;
 
@@ -320,12 +331,7 @@ const RenderPost: React.FC<SlugProps> = props => {
                             // 次のリストのタグを取得
                             listMap[item.nested[0]].listTagName,
                             {
-                              key: item + 'sub-list',
-                              className: `${
-                                listMap[item.nested[0]].listTagName === 'ul'
-                                  ? 'list-disc'
-                                  : 'list-decimal'
-                              } list-inside`
+                              key: item + 'sub-list'
                             },
                             item.nested.map(nestedId => {
                               return createEl(listMap[nestedId]);
@@ -342,14 +348,6 @@ const RenderPost: React.FC<SlugProps> = props => {
             listLastId = null;
             listTagName = null;
           }
-
-          const renderHeading = (Type: string | React.ComponentType) => {
-            toRender.push(
-              <Heading key={id}>
-                <Type key={id}>{textBlock(properties.title, true, id)}</Type>
-              </Heading>
-            );
-          };
 
           const renderBookmark = ({ link, title, description, format }) => {
             const { bookmark_icon: icon, bookmark_cover: cover } = format;
@@ -415,110 +413,28 @@ const RenderPost: React.FC<SlugProps> = props => {
               }
               break;
             case 'image':
-            case 'video':
+            case 'video': {
+              const comp = embedMedia(value, id, type, src => {
+                // 指定の画像をlightboxで開く
+                setVisible(true);
+                setSelectedImage(src);
+              });
+              toRender.push(comp);
+              break;
+            }
             case 'embed': {
-              const { format = {} } = value;
-              const {
-                block_width,
-                block_height,
-                display_source,
-                block_aspect_ratio
-              } = format;
-              const baseBlockWidth = 768;
-              const roundFactor = Math.pow(10, 2);
-              // calculate percentages
-              const width = block_width
-                ? `${
-                    Math.round(
-                      (block_width / baseBlockWidth) * 100 * roundFactor
-                    ) / roundFactor
-                  }%`
-                : block_height || '100%';
-
-              const isImage = type === 'image';
-              const Comp = isImage ? 'img' : 'video';
-              const useWrapper = block_aspect_ratio && !block_height;
-              const childStyle: CSSProperties = useWrapper
-                ? {
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    position: 'absolute',
-                    top: 0
-                  }
-                : {
-                    width,
-                    border: 'none',
-                    height: block_height,
-                    display: 'block',
-                    maxWidth: '100%'
-                  };
-
-              let child = null;
-
-              if (!isImage && !value.file_ids) {
-                // external resource use iframe
-                child = (
-                  <iframe
-                    style={childStyle}
-                    src={display_source}
-                    key={!useWrapper ? id : undefined}
-                    className={!useWrapper ? 'asset-wrapper' : undefined}
-                  />
-                );
-              } else {
-                // notion resource
-                child = (
-                  <Comp
-                    key={!useWrapper ? id : undefined}
-                    src={`/api/asset?assetUrl=${encodeURIComponent(
-                      display_source as any
-                    )}&blockId=${id}`}
-                    controls={!isImage}
-                    alt={`An ${isImage ? 'image' : 'video'} from Notion`}
-                    loop={!isImage}
-                    muted={!isImage}
-                    autoPlay={!isImage}
-                    style={childStyle}
-                    loading={isImage ? 'lazy' : 'eager'}
-                    className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in shadow"
-                    onClick={() => {
-                      const src = `/api/asset?assetUrl=${encodeURIComponent(
-                        display_source as any
-                      )}&blockId=${id}`;
-                      // 指定の画像をlightboxで開く
-                      setSelectedImage(src);
-                    }}
-                  />
-                );
-              }
-
-              toRender.push(
-                useWrapper ? (
-                  <div
-                    style={{
-                      paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-                      position: 'relative'
-                    }}
-                    className="asset-wrapper shadow-md mb-4"
-                    key={id}
-                  >
-                    {child}
-                  </div>
-                ) : (
-                  child
-                )
-              );
+              const comp = embedWebPage(value, id);
+              toRender.push(comp);
               break;
             }
             case 'header':
-              renderHeading('h1');
+              toRender.push(renderHeading(id, properties.title, 'h1'));
               break;
             case 'sub_header':
-              renderHeading('h2');
+              toRender.push(renderHeading(id, properties.title, 'h2'));
               break;
             case 'sub_sub_header':
-              renderHeading('h3');
+              toRender.push(renderHeading(id, properties.title, 'h3'));
               break;
             case 'bookmark':
               const { link, title, description } = properties;
@@ -605,32 +521,21 @@ const RenderPost: React.FC<SlugProps> = props => {
         })}
       </div>
 
-      <hr className="pb-4" />
-      <Bio />
-      <hr />
-      <div className="flex flex-row pb-10 pt-4">
-        <div className="flex w-1/2 flex-1">
-          {beforePost && (
-            <SiblingPost
-              title={beforePost.Page}
-              url={getBlogLink(beforePost.Slug)}
-              chevron="left"
-            />
-          )}
-        </div>
-        <div className="w-px h-auto bg-gray-400 mx-4" />
-        <div className="flex w-1/2 flex-1">
-          {afterPost && (
-            <SiblingPost
-              title={afterPost.Page}
-              url={getBlogLink(afterPost.Slug)}
-              chevron="right"
-            />
-          )}
-        </div>
-      </div>
-    </>
+      <StyledBioBox>
+        <Bio />
+      </StyledBioBox>
+
+      <SiblingPost beforePost={beforePost} afterPost={afterPost} />
+    </Container>
   );
 };
+
+const StyledBioBox = styled('div', {
+  marginTop: '$24',
+  marginBottom: '$8',
+  padding: '$8 0',
+  borderTop: '1px solid $gray400',
+  borderBottom: '1px solid $gray200'
+});
 
 export default RenderPost;
