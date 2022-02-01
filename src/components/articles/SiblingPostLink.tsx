@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import * as React from 'react';
 
-import { Link, Spacer, styled, useTheme } from '@nextui-org/react';
+import { Link, styled, useTheme } from '@nextui-org/react';
 import { ChevronLeft, ChevronRight } from '@styled-icons/feather';
 
 interface SiblingPostProps {

@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import * as React from 'react';
 
-import { Link, styled, Text } from '@nextui-org/react';
+import { Link, styled } from '@nextui-org/react';
 
 interface FooterProps {}
 

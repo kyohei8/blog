@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import * as qs from 'querystring';
 import { useMemo } from 'react';
 
-import { Link, styled, Text } from '@nextui-org/react';
+import { Link, styled } from '@nextui-org/react';
 
 // import { useRouter } from 'next/router';
 import { siteMetadata } from '../constant';

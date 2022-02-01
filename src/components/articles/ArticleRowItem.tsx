@@ -1,7 +1,7 @@
 import NextLink from 'next/link';
 import * as React from 'react';
 
-import { Container, Link, Spacer, Text } from '@nextui-org/react';
+import { Container, Link, Spacer } from '@nextui-org/react';
 
 import { getBlogLink } from '../../lib/blog-helpers';
 import Date from './Date';

@@ -7,7 +7,7 @@ export async function getPostPreview(pageId: string) {
   let blocks;
   // let dividerIndex = 0;
 
-  const data = await loadPageChunk({ pageId, limit: 10 });
+  const data = (await loadPageChunk({ pageId, limit: 10 })) as any;
   blocks = values(data.recordMap.block);
   let previewText = '';
   for (let i = 0; i < blocks.length; i++) {

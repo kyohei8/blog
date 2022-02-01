@@ -32,10 +32,10 @@ export default async function loadTable(
 
   const { value } = collectionBlock;
   let table: postDataType[] = [];
-  const col = await queryCollection({
+  const col = (await queryCollection({
     collectionId: value.collection_id,
     collectionViewId: value.view_ids[0]
-  });
+  })) as any;
   const entries = values(col.recordMap.block).filter((block: any) => {
     return block.value && block.value.parent_id === value.collection_id;
   });
