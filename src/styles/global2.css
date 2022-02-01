@@ -9,6 +9,19 @@ code:hover {
   opacity: 1 !important;
 }
 
+.callout {
+  display: flex;
+  background-color: #eeeeee;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.callout > div:nth-child(1) {
+  font-family: Segoe UI Symbol;
+  font-size: 1.2rem;
+  margin-right: 0.9rem;
+}
+
 .twitter-tweet {
   margin: auto;
 }

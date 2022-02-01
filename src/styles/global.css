@@ -182,35 +182,6 @@ pre :global(code) {
   -webkit-overflow-scrolling: touch;
 }
 
-/* blockquote {
-  font-style: italic;
-  font-family: var(--font-mono);
-  margin-top: 0;
-  padding-bottom: 0;
-  padding-left: 1.275rem;
-  padding-right: 0;
-  padding-top: 0;
-  margin-bottom: 1.7rem;
-  font-size: 1rem;
-  line-height: 1.7rem;
-  color: hsla(0, 0%, 0%, 0.6);
-  border-left: 0.425rem solid hsla(0, 0%, 0%, 0.13);
-  word-break: break-word;
-} */
-
-.callout {
-  display: flex;
-  background-color: #eeeeee;
-  border-radius: 2px;
-  padding: 1rem;
-}
-
-.callout > div:nth-child(1) {
-  font-family: Segoe UI Symbol;
-  font-size: 1.2rem;
-  margin-right: 10px;
-}
-
 .slice {
   position: relative;
 }
