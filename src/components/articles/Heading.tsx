@@ -29,12 +29,7 @@ export const Heading = ({
   }
 
   return (
-    <a
-      href={`#${id}`}
-      id={id}
-      style={{ color: 'inherit' }}
-      className="hover:no-underline"
-    >
+    <a href={`#${id}`} id={id} style={{ color: 'inherit' }}>
       {component}
     </a>
   );

@@ -58,7 +58,7 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
   return (
     <Container>
       <article>
-        <div className="mb-20">
+        <div>
           {(!post.content || post.content.length === 0) && (
             <p>This post has no content</p>
           )}
@@ -139,7 +139,6 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
                       style={childStyle}
                       src={display_source}
                       key={!useWrapper ? id : undefined}
-                      className={!useWrapper ? 'asset-wrapper' : undefined}
                     />
                   );
                 } else {
@@ -157,7 +156,6 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
                       autoPlay={!isImage}
                       style={childStyle}
                       loading={isImage ? 'lazy' : 'eager'}
-                      className="shadow"
                     />
                   );
                 }
@@ -174,7 +172,6 @@ const Portfolio: NextPage<PortfolioProps> = ({ post }) => {
                           boxShadow:
                             'rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px'
                         }}
-                        className="asset-wrapper shadow-md"
                       >
                         {child}
                       </div>

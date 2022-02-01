@@ -5,6 +5,7 @@ import { Container, Link, Spacer, Text } from '@nextui-org/react';
 
 import { getBlogLink } from '../../lib/blog-helpers';
 import Date from './Date';
+import DraftTag from './DraftTag';
 
 interface ArticleRowProps {
   title: string;
@@ -49,11 +50,7 @@ const ArticleRow: React.FC<ArticleRowProps> = ({
       }}
     />
     <div>
-      {draft && (
-        <Text size={12} color="$yellow500" span>
-          Draft
-        </Text>
-      )}
+      {draft && <DraftTag />}
       <NextLink
         href="/blog/[slug]"
         as={getBlogLink(slug)}

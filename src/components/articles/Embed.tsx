@@ -84,7 +84,6 @@ export const embedMedia = (
         paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
         position: 'relative'
       }}
-      className="asset-wrapper shadow-md mb-4"
       key={id}
     >
       {child}

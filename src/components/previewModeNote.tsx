@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import * as React from 'react';
 
+import { styled } from '@nextui-org/react';
+
 interface PreviewModeNoteProps {
   clearHref: string;
 }
@@ -9,15 +11,27 @@ interface PreviewModeNoteProps {
  * PreviewModeNote
  */
 const PreviewModeNote: React.FC<PreviewModeNoteProps> = ({ clearHref }) => (
-  <div className="my-4">
-    <div className="py-2 px-4 bg-yellow-300 rounded shadow-sm flex justify-between">
+  <div>
+    <StyledWrapper>
       <span>
         <b>Note: </b>Viewing in preview mode
       </span>
-      <Link href={clearHref}>
-        <button className="ml-1 px-2 text-blue-500">Exit Preview</button>
+      <Link href={clearHref} prefetch={false}>
+        <a>Exit Preview</a>
       </Link>
-    </div>
+    </StyledWrapper>
   </div>
 );
+
+const StyledWrapper = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '$4 $8',
+  backgroundColor: '$yellow300',
+  borderRadius: '$xs',
+  boxShadow: '$sm',
+  marginBottom: '$4'
+});
+
 export default PreviewModeNote;

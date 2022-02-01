@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Text } from '@nextui-org/react';
+
 interface DateProps {
   date: string;
 }
@@ -8,6 +10,8 @@ interface DateProps {
  * Date
  */
 const Date = ({ date }: DateProps): JSX.Element => (
-  <small className="text-sm text-slate-600">{date}</small>
+  <Text small color="$gray500" css={{ margin: 0 }}>
+    {date}
+  </Text>
 );
 export default Date;
