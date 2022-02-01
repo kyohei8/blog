@@ -38,9 +38,6 @@ const StyledPre = styled('pre', {
 const StyledCode = styled('code', {
   lineHeight: 1.4,
   fontSize: '$xs',
-  '@sm': {
-    fontSize: '$base'
-  },
   letterSpacing: 0,
   display: 'inline',
   overflow: 'hidden',

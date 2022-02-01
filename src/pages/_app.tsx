@@ -12,7 +12,17 @@ import { siteMetadata, theme } from '../constant';
 
 // !! importantを書かないと上書きされないことがあります！
 const globalStyles = globalCss({
-  '*': { margin: 0, padding: 0, boxSizing: 'borderBox' },
+  '*': {
+    margin: 0,
+    padding: 0,
+    boxSizing: 'borderBox'
+  },
+  a: {
+    wordBreak: 'break-word'
+  },
+  h1: {
+    wordBreak: 'break-word'
+  },
   p: {
     lineHeight: '1.7 !important',
     marginTop: '0 !important',

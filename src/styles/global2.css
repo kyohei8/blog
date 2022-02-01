@@ -3,6 +3,7 @@
   color: inherit;
   margin: 0 6px;
   border-radius: 2px !important;
+  word-break: break-word;
 }
 
 code:hover {
