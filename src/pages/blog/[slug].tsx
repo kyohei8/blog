@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Spacer, styled, Text, useModal } from '@nextui-org/react';
 import ReactJSXParser from '@zeit/react-jsx-parser';
 
+import Cover from '../../components/articles/Cover';
 import Date from '../../components/articles/Date';
 import { embedMedia, embedWebPage } from '../../components/articles/Embed';
 import { renderHeading } from '../../components/articles/Heading';
@@ -92,7 +93,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
           `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
         );
         const json = await res.json();
-        properties.html = json.html.split('<script')[0];
+        properties.html = (json as any).html.split('<script')[0];
         post.hasTweet = true;
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`);
@@ -173,6 +174,7 @@ const RenderPost: React.FC<SlugProps> = props => {
       }
     }
   }, []);
+
   useEffect(() => {
     if (redirect && !post) {
       router.replace(redirect);
@@ -198,12 +200,14 @@ const RenderPost: React.FC<SlugProps> = props => {
   }
 
   let headerImageSrc = '';
+  let headerImagePosition = 0.5;
   if (post.content[0]) {
     const { value } = post.content[0];
 
     // ヘッダ画像
     if (value.parent_table === 'collection') {
       if (value.format && value.format.page_cover) {
+        headerImagePosition = value.format.page_cover_position;
         if ((value.format.page_cover as string).startsWith('/images')) {
           headerImageSrc = `https://www.notion.so${value.format.page_cover}`;
         } else {
@@ -239,18 +243,10 @@ const RenderPost: React.FC<SlugProps> = props => {
       )}
       <div>
         {headerImageSrc && (
-          <div>
-            <div className="h-64"></div>
-            <div
-              className="h-64 absolute w-full left-0"
-              style={{ top: '48px' }}
-            >
-              <div
-                className="bg-center bg-cover w-full h-full"
-                style={{ backgroundImage: `url(${headerImageSrc})` }}
-              />
-            </div>
-          </div>
+          <Cover
+            headerImageSrc={headerImageSrc}
+            headerImagePosition={headerImagePosition}
+          />
         )}
         {previewMode && (
           <PreviewModeNote clearHref={`/api/clear-preview?slug=${post.Slug}`} />

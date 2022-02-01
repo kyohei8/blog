@@ -18,7 +18,7 @@ export default async function getPageData(pageId: string) {
     const blockArray = values(blocks);
     if (blockArray[0] && blockArray[0].value.content) {
       // remove table blocks
-      blockArray.splice(0, 3);
+      blockArray.splice(1, 2);
     }
     return { blocks: blockArray };
   } catch (err) {
