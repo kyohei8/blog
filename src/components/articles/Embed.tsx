@@ -64,7 +64,7 @@ export const embedMedia = (
   } else {
     // video
     child = (
-      <video
+      <StyledVideo
         key={!useWrapper ? id : undefined}
         src={`/api/asset?assetUrl=${encodeURIComponent(
           display_source as any
@@ -74,13 +74,6 @@ export const embedMedia = (
         muted={!isImage}
         autoPlay={!isImage}
         style={childStyle}
-        // className="transition-opacity duration-200 hover:opacity-75 cursor-zoom-in shadow"
-        onClick={() => {
-          const src = `/api/asset?assetUrl=${encodeURIComponent(
-            display_source as any
-          )}&blockId=${id}`;
-          onClick(src);
-        }}
       />
     );
   }
@@ -103,11 +96,16 @@ export const embedMedia = (
 
 const StyledImage = styled('img', {
   boxShadow: '$sm',
-  margin: '0 auto',
+  margin: '0 auto %8',
   cursor: 'zoom-in',
   '&:hover': {
     opacity: 0.8
   }
+});
+
+const StyledVideo = styled('video', {
+  boxShadow: '$sm',
+  margin: '0 auto $8'
 });
 
 export const embedWebPage = (value: any, id: string) => {
@@ -147,11 +145,10 @@ export const embedWebPage = (value: any, id: string) => {
   if (!value.file_ids) {
     // external resource use iframe
     child = (
-      <iframe
+      <StyledIframe
         style={childStyle}
         src={display_source}
         key={!useWrapper ? id : undefined}
-        className={!useWrapper ? 'asset-wrapper' : undefined}
       />
     );
   }
@@ -162,7 +159,6 @@ export const embedWebPage = (value: any, id: string) => {
         paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
         position: 'relative'
       }}
-      className="asset-wrapper shadow-md mb-4"
       key={id}
     >
       {child}
@@ -171,3 +167,8 @@ export const embedWebPage = (value: any, id: string) => {
     child
   );
 };
+
+const StyledIframe = styled('iframe', {
+  boxShadow: '$sm',
+  margin: '0 auto $8'
+});
