@@ -2,7 +2,6 @@ import { Table } from '@nextui-org/react';
 
 export const buildTable = (data: any) => {
   const { rows, value } = data;
-  console.log(value);
   // TODO: table_block_column_format で cellの幅が取得できる
   // TODO: table_block_row_header もある
   const {
