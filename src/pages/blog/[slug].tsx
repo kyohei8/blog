@@ -10,6 +10,7 @@ import Date from '../../components/articles/Date';
 import { embedMedia, embedWebPage } from '../../components/articles/Embed';
 import { renderHeading } from '../../components/articles/Heading';
 import SiblingPost from '../../components/articles/SiblingPost';
+import { buildTable } from '../../components/articles/Table';
 import Tags from '../../components/articles/Tags';
 import Bio from '../../components/bio';
 import components from '../../components/dynamic';
@@ -226,6 +227,8 @@ const RenderPost: React.FC<SlugProps> = props => {
       setSelectedImage('');
     }
   }, [bindings.open, setSelectedImage]);
+
+  const tableStack = new Map();
 
   return (
     <Container sm gap={1}>
@@ -505,6 +508,22 @@ const RenderPost: React.FC<SlugProps> = props => {
                     key={id}
                   />
                 );
+              }
+              break;
+            }
+            case 'table': {
+              tableStack.set(id, {
+                value: value,
+                rows: []
+              });
+              break;
+            }
+            case 'table_row': {
+              const tableData = tableStack.get(value.parent_id);
+              tableData.rows.push(value);
+              if (tableData.value.content.length === tableData.rows.length) {
+                toRender.push(buildTable(tableData));
+                tableStack.delete(value.parent_id);
               }
               break;
             }
