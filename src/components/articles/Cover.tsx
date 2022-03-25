@@ -19,7 +19,7 @@ const Cover = ({
       <StyledBgImage
         css={{
           backgroundImage: `url(${headerImageSrc})`,
-          backgroundPosition: `center ${headerImagePosition * 1000}%`
+          backgroundPosition: `center ${(1 - headerImagePosition) * 100}%`
         }}
       />
     </StyledCover>
@@ -40,6 +40,7 @@ const StyledCover = styled('div', {
 
 const StyledBgImage = styled('div', {
   backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
   width: '100%',
   height: '100%'
 });
