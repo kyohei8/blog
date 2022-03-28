@@ -1071,10 +1071,10 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.9.tgz#f7d3b59000082cf65c84fdc61930b708aa5446e5"
   integrity sha512-1c/sxp/4Qz4F6rCxiYqAnrmghCOFt5hHZ9Kd+rXFW5Mqev4C4XDOUMHdBH55HgnJZqngYhOE0r/XNkCtsIojig==
 
-"@nextui-org/react@^1.0.2-beta.3":
-  version "1.0.2-beta.5-dbg4"
-  resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-1.0.2-beta.5-dbg4.tgz#68da55f2c6598e47e89bb099c6bfe461ed97b72a"
-  integrity sha512-LRVpnOcRJbu3BlvCwvpasPQ1hdODIn5NhocliGEX81TeynoT/Wt+Ex/1CeZhwPnnvt/s3oml91QL/KBAX78XWA==
+"@nextui-org/react@1.0.4-beta.5":
+  version "1.0.4-beta.5"
+  resolved "https://registry.yarnpkg.com/@nextui-org/react/-/react-1.0.4-beta.5.tgz#f08efbce5fe397488bdbc71df77e66a4392c046a"
+  integrity sha512-9Evj2nHATu3t8LMKRl/Bdwi0GtOo2R3l1PTdpZ1yueIIp9Hc8WR6L8PnJrcrhOxYJosy02n2qTTEANKLvbBn9A==
   dependencies:
     "@babel/runtime" "7.9.6"
     "@react-aria/checkbox" "3.3.0"
@@ -1082,7 +1082,7 @@
     "@react-aria/i18n" "3.3.6"
     "@react-aria/interactions" "3.8.0"
     "@react-aria/label" "3.2.2"
-    "@react-aria/ssr" "3.1.1"
+    "@react-aria/ssr" "3.1.2"
     "@react-aria/table" "3.2.1"
     "@react-aria/utils" "3.11.1"
     "@react-aria/visually-hidden" "3.2.4"
@@ -1255,14 +1255,7 @@
     "@react-stately/selection" "^3.9.3"
     "@react-types/shared" "^3.11.2"
 
-"@react-aria/ssr@3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@react-aria/ssr/-/ssr-3.1.1.tgz#74243b9a76e0f85e18b1becc7125b44b02cc2a12"
-  integrity sha512-X02QCmTg6kMU2kodRtZ9Qln7x/xs9WxW+bbKeUjeBoLvz6QGFAiTwGEcarFjYJIgQTHSZ81bIJqF91wfnvk1Ew==
-  dependencies:
-    "@babel/runtime" "^7.6.2"
-
-"@react-aria/ssr@^3.1.1", "@react-aria/ssr@^3.1.2":
+"@react-aria/ssr@3.1.2", "@react-aria/ssr@^3.1.1", "@react-aria/ssr@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@react-aria/ssr/-/ssr-3.1.2.tgz#665a6fd56385068c7417922af2d0d71b0618e52d"
   integrity sha512-amXY11ImpokvkTMeKRHjsSsG7v1yzzs6yeqArCyBIk60J3Yhgxwx9Cah+Uu/804ATFwqzN22AXIo7SdtIaMP+g==
