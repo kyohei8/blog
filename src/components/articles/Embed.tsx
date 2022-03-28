@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-import { styled } from '@nextui-org/react';
+import { styled, Text } from '@nextui-org/react';
 
 // 画像、動画、iframeのコンポーネント出力
 export const embedMedia = (
@@ -9,9 +9,10 @@ export const embedMedia = (
   type: 'image' | 'video' | 'embed',
   onClick?: (src: string) => void
 ) => {
-  const { format = {} } = value;
+  const { format = {}, properties } = value;
   const { block_width, block_height, display_source, block_aspect_ratio } =
     format;
+  const { caption = '' } = properties;
 
   const baseBlockWidth = 768;
   const roundFactor = Math.pow(10, 2);
@@ -79,14 +80,21 @@ export const embedMedia = (
   }
 
   return useWrapper ? (
-    <div
-      style={{
-        paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-        position: 'relative'
-      }}
-      key={id}
-    >
-      {child}
+    <div>
+      <div
+        style={{
+          paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
+          position: 'relative'
+        }}
+        key={id}
+      >
+        {child}
+      </div>
+      {caption && (
+        <Text size="$xs" color="$gray500">
+          {caption}
+        </Text>
+      )}
     </div>
   ) : (
     child
@@ -97,8 +105,12 @@ const StyledImage = styled('img', {
   boxShadow: '$sm',
   margin: '0 auto %8',
   cursor: 'zoom-in',
-  '&:hover': {
-    opacity: 0.8
+  borderRadius: '1px',
+  '@hover': {
+    '&:hover': {
+      cursor: 'pointer',
+      opacity: 0.9
+    }
   }
 });
 
