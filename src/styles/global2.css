@@ -1,7 +1,7 @@
 :not(pre) > code {
   background-color: #dee2e7 !important;
-  color: inherit;
-  margin: 0 6px;
+  color: #832100;
+  margin: 0 4px;
   border-radius: 2px !important;
   word-break: break-word;
 }

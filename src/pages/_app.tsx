@@ -24,11 +24,10 @@ const globalStyles = globalCss({
     wordBreak: 'break-word'
   },
   p: {
-    lineHeight: '1.7 !important',
+    lineHeight: '1.9 !important',
     marginTop: '0 !important',
     marginBottom: '$6 !important',
-    whiteSpace: 'pre-wrap',
-    letterSpacing: '$wide !important'
+    whiteSpace: 'pre-wrap'
   },
   pre: {
     whiteSpace: 'pre',
@@ -37,7 +36,7 @@ const globalStyles = globalCss({
 
   'ul, ol': {
     listStyleType: 'revert !important',
-    margin: '$3 $3 $3 $12 !important'
+    margin: '$3 $3 $8 $12 !important'
   },
 
   blockquote: {

@@ -75,6 +75,7 @@ const StyledHeading2 = styled('h2', {
 });
 
 const StyledHeading3 = styled('h3', {
+  marginTop: '$12',
   fontSize: '$sm',
   fontWeight: '$normal'
 });
