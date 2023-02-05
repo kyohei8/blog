@@ -23,8 +23,14 @@ const globalStyles = globalCss({
   h1: {
     wordBreak: 'break-word'
   },
+  h2: {
+    fontWeight: 'var(--nextui-fontWeights-medium) !important'
+  },
+  h3: {
+    fontWeight: 'var(--nextui-fontWeights-medium) !important'
+  },
   p: {
-    lineHeight: '1.9 !important',
+    lineHeight: '1.7 !important',
     marginTop: '0 !important',
     marginBottom: '$6 !important',
     whiteSpace: 'pre-wrap'
@@ -146,7 +152,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           dangerouslySetInnerHTML={{
             __html: `
             WebFontConfig = {
-              google: { families: ['Noto Sans JP:200,400,400i,700'] }
+              google: { families: ['Noto Sans JP:200,400,400i,500,700'] }
             };
             (function() {
               var wf = document.createElement('script');
