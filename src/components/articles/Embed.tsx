@@ -2,6 +2,23 @@ import { CSSProperties } from 'react';
 
 import { styled, Text } from '@nextui-org/react';
 
+const Caption = ({ captions }: { captions: string[] }): JSX.Element => (
+  <Text
+    span
+    size="$xs"
+    color="$gray500"
+    style={{
+      display: 'inline-block',
+      marginTop: '8px',
+      marginBottom: '0'
+    }}
+  >
+    {captions.map(caption => (
+      <span key={caption}>{caption}</span>
+    ))}
+  </Text>
+);
+
 // 画像、動画、iframeのコンポーネント出力
 export const embedMedia = (
   value: any,
@@ -12,7 +29,7 @@ export const embedMedia = (
   const { format = {}, properties } = value;
   const { block_width, block_height, display_source, block_aspect_ratio } =
     format;
-  const { caption = '' } = properties;
+  const captions = properties.caption || [];
 
   const baseBlockWidth = 768;
   const roundFactor = Math.pow(10, 2);
@@ -80,7 +97,7 @@ export const embedMedia = (
   }
 
   return useWrapper ? (
-    <div>
+    <StyledImageWrapper>
       <div
         style={{
           paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
@@ -90,20 +107,29 @@ export const embedMedia = (
       >
         {child}
       </div>
-      {caption && (
-        <Text size="$xs" color="$gray500">
-          {caption}
-        </Text>
-      )}
-    </div>
+      {captions.length > 0 && <Caption captions={captions} />}
+    </StyledImageWrapper>
   ) : (
-    child
+    <StyledImageWrapper>
+      <div
+        style={{
+          position: 'relative'
+        }}
+        key={id}
+      >
+        {child}
+      </div>
+      {captions.length > 0 && <Caption captions={captions} />}
+    </StyledImageWrapper>
   );
 };
 
+const StyledImageWrapper = styled('div', {
+  margin: '0 auto $8'
+});
+
 const StyledImage = styled('img', {
   boxShadow: '$sm',
-  margin: '0 auto %8',
   cursor: 'zoom-in',
   borderRadius: '1px',
   '@hover': {
